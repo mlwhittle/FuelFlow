@@ -1,14 +1,42 @@
-import { Moon, Sun, Menu, X, LogOut, ChevronLeft } from 'lucide-react';
+import { Moon, Sun, LogOut, ChevronDown, X } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { logOut } from '../services/authService';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './Header.css';
 
 const Header = ({ currentView, setCurrentView, authUser }) => {
     const { theme, toggleTheme } = useApp();
     const [showMoreMenu, setShowMoreMenu] = useState(false);
+    const [openDropdown, setOpenDropdown] = useState(null);
+    const dropdownRef = useRef(null);
 
-    // Primary tabs shown in bottom bar (max 5 for mobile)
+    // Desktop nav: grouped into dropdowns
+    const desktopNav = [
+        { id: 'dashboard', label: 'Home', icon: '📊', type: 'link' },
+        {
+            label: 'Track', icon: '📝', type: 'dropdown',
+            items: [
+                { id: 'logger', label: 'Food Log', icon: '🍽️', desc: 'Search & log meals' },
+                { id: 'photoLogger', label: 'AI Photo', icon: '📸', desc: 'Snap a photo to log' },
+                { id: 'voiceLogger', label: 'Voice Log', icon: '🎙️', desc: 'Log by speaking' },
+                { id: 'activity', label: 'Activity', icon: '🏃', desc: 'Track exercise' },
+            ]
+        },
+        {
+            label: 'Plan', icon: '📅', type: 'dropdown',
+            items: [
+                { id: 'mealPlan', label: 'Meal Planner', icon: '📅', desc: 'Plan your week' },
+                { id: 'groceryList', label: 'Grocery List', icon: '🛒', desc: 'Shop by department' },
+                { id: 'recipes', label: 'Recipes', icon: '📖', desc: 'Save favorites' },
+                { id: 'coach', label: 'AI Coach', icon: '🧠', desc: 'Smart recommendations' },
+            ]
+        },
+        { id: 'fasting', label: 'Fasting', icon: '⏱️', type: 'link' },
+        { id: 'progress', label: 'Progress', icon: '📈', type: 'link' },
+        { id: 'social', label: 'Community', icon: '🌐', type: 'link' },
+    ];
+
+    // Primary tabs for mobile bottom bar
     const primaryTabs = [
         { id: 'dashboard', label: 'Home', icon: '📊' },
         { id: 'logger', label: 'Log', icon: '🍽️' },
@@ -17,15 +45,11 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
         { id: 'more', label: 'More', icon: '⋯' }
     ];
 
-    // All nav items for desktop + "More" menu
-    const allNavItems = [
-        { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-        { id: 'logger', label: 'Food Log', icon: '🍽️' },
+    // All items for mobile "More" menu
+    const moreItems = [
         { id: 'photoLogger', label: 'AI Photo', icon: '📸' },
         { id: 'voiceLogger', label: 'Voice', icon: '🎙️' },
         { id: 'activity', label: 'Activity', icon: '🏃' },
-        { id: 'progress', label: 'Progress', icon: '📈' },
-        { id: 'fasting', label: 'Fasting', icon: '⏱️' },
         { id: 'coach', label: 'Coach', icon: '🧠' },
         { id: 'mealPlan', label: 'Meals', icon: '📅' },
         { id: 'groceryList', label: 'Groceries', icon: '🛒' },
@@ -34,10 +58,16 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
         { id: 'settings', label: 'Settings', icon: '⚙️' }
     ];
 
-    // Items shown in "More" menu on mobile
-    const moreItems = allNavItems.filter(
-        item => !['dashboard', 'logger', 'fasting', 'progress'].includes(item.id)
-    );
+    // Close dropdown on outside click
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+                setOpenDropdown(null);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const handleLogout = async () => {
         await logOut();
@@ -52,6 +82,16 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
         }
         setCurrentView(id);
         setShowMoreMenu(false);
+        setOpenDropdown(null);
+    };
+
+    const toggleDropdown = (label) => {
+        setOpenDropdown(openDropdown === label ? null : label);
+    };
+
+    // Check if current view is inside a dropdown
+    const isViewInDropdown = (items) => {
+        return items?.some(item => item.id === currentView);
     };
 
     const isActiveInMore = moreItems.some(item => item.id === currentView);
@@ -62,28 +102,73 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
             <header className="header">
                 <div className="header-container">
                     <div className="header-brand">
-                        <div className="logo">
+                        <div className="logo" onClick={() => handleNavClick('dashboard')} style={{ cursor: 'pointer' }}>
                             <span className="logo-icon">🔥</span>
                             <span className="logo-text gradient-text">FuelFlow</span>
                         </div>
-                        <span className="tagline">Fuel your body, flow through life</span>
                     </div>
 
-                    {/* Desktop Navigation */}
-                    <nav className="nav-desktop">
-                        {allNavItems.map(item => (
-                            <button
-                                key={item.id}
-                                className={`nav-item ${currentView === item.id ? 'active' : ''}`}
-                                onClick={() => setCurrentView(item.id)}
-                            >
-                                <span className="nav-icon">{item.icon}</span>
-                                <span>{item.label}</span>
-                            </button>
-                        ))}
+                    {/* Desktop Navigation with Dropdowns */}
+                    <nav className="nav-desktop" ref={dropdownRef}>
+                        {desktopNav.map((navItem, idx) => {
+                            if (navItem.type === 'link') {
+                                return (
+                                    <button
+                                        key={navItem.id}
+                                        className={`nav-item ${currentView === navItem.id ? 'active' : ''}`}
+                                        onClick={() => handleNavClick(navItem.id)}
+                                    >
+                                        <span className="nav-icon">{navItem.icon}</span>
+                                        <span>{navItem.label}</span>
+                                    </button>
+                                );
+                            }
+
+                            // Dropdown
+                            const isOpen = openDropdown === navItem.label;
+                            const hasActive = isViewInDropdown(navItem.items);
+
+                            return (
+                                <div key={navItem.label} className="nav-dropdown-wrapper">
+                                    <button
+                                        className={`nav-item nav-dropdown-trigger ${hasActive ? 'active' : ''}`}
+                                        onClick={() => toggleDropdown(navItem.label)}
+                                    >
+                                        <span className="nav-icon">{navItem.icon}</span>
+                                        <span>{navItem.label}</span>
+                                        <ChevronDown size={14} className={`dropdown-chevron ${isOpen ? 'open' : ''}`} />
+                                    </button>
+
+                                    {isOpen && (
+                                        <div className="nav-dropdown-menu">
+                                            {navItem.items.map(sub => (
+                                                <button
+                                                    key={sub.id}
+                                                    className={`nav-dropdown-item ${currentView === sub.id ? 'active' : ''}`}
+                                                    onClick={() => handleNavClick(sub.id)}
+                                                >
+                                                    <span className="nav-dropdown-icon">{sub.icon}</span>
+                                                    <div className="nav-dropdown-text">
+                                                        <span className="nav-dropdown-label">{sub.label}</span>
+                                                        {sub.desc && <span className="nav-dropdown-desc">{sub.desc}</span>}
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
                     </nav>
 
                     <div className="header-actions">
+                        <button
+                            className={`nav-item nav-settings ${currentView === 'settings' ? 'active' : ''}`}
+                            onClick={() => handleNavClick('settings')}
+                            title="Settings"
+                        >
+                            ⚙️
+                        </button>
                         {authUser && (
                             <button
                                 className="btn btn-icon"

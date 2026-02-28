@@ -90,6 +90,103 @@
     font-size: var(--font-size-lg);
 }
 
+/* Dropdown wrapper */
+.nav-dropdown-wrapper {
+    position: relative;
+}
+
+.nav-dropdown-trigger {
+    gap: var(--space-xs);
+}
+
+.dropdown-chevron {
+    transition: transform var(--transition-fast);
+    opacity: 0.6;
+}
+
+.dropdown-chevron.open {
+    transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 240px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-sm);
+    z-index: 1100;
+    animation: dropdownFadeIn 0.15s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.nav-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border: none;
+    background: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: left;
+    transition: all var(--transition-fast);
+    color: var(--text-primary);
+}
+
+.nav-dropdown-item:hover {
+    background: var(--bg-tertiary);
+}
+
+.nav-dropdown-item.active {
+    background: var(--primary-50);
+    color: var(--primary-600);
+}
+
+.nav-dropdown-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.nav-dropdown-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.nav-dropdown-label {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+}
+
+.nav-dropdown-desc {
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+    font-weight: 400;
+}
+
+.nav-settings {
+    padding: var(--space-sm);
+    font-size: var(--font-size-lg);
+}
+
 .header-actions {
     display: flex;
     gap: var(--space-sm);
