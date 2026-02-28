@@ -295,6 +295,19 @@ const AdaptiveCoach = () => {
                     ))}
                 </div>
             </div>
+
+            {/* Research Disclaimer */}
+            <div className="coach-disclaimer" style={{
+                marginTop: 'var(--space-xl)',
+                padding: 'var(--space-md) var(--space-lg)',
+                background: 'var(--bg-tertiary)',
+                borderRadius: 'var(--radius-lg)',
+                borderLeft: '3px solid var(--gold-500)'
+            }}>
+                <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-tertiary)', lineHeight: 1.6, margin: 0 }}>
+                    <strong style={{ color: 'var(--text-secondary)' }}>📋 Disclaimer:</strong> Recommendations are generated using evidence-based nutritional guidelines from peer-reviewed research, including USDA Dietary Guidelines, American College of Sports Medicine (ACSM) standards, and established sports nutrition principles. This analysis is rule-based and uses your logged data to provide general wellness guidance. <strong>This is not medical advice.</strong> Always consult a registered dietitian or healthcare provider before making significant dietary changes, especially if you have medical conditions.
+                </p>
+            </div>
         </div>
     );
 };

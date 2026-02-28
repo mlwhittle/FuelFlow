@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useApp } from '../context/AppContext';
-import { Camera, Upload, X, Check, RefreshCw, Sparkles } from 'lucide-react';
-import { analyzePhotoAI } from '../services/aiPhotoService';
+import { Camera, Upload, X, Check, RefreshCw, Sparkles, Key, AlertTriangle } from 'lucide-react';
+import { analyzePhotoAI, hasGeminiApiKey, setGeminiApiKey } from '../services/aiPhotoService';
 import './PhotoLogger.css';
 
 const PhotoLogger = () => {
@@ -12,19 +12,41 @@ const PhotoLogger = () => {
     const [detectedFoods, setDetectedFoods] = useState([]);
     const [selectedFoods, setSelectedFoods] = useState([]);
     const [mealType, setMealType] = useState('lunch');
+    const [analysisError, setAnalysisError] = useState('');
+    const [needsApiKey, setNeedsApiKey] = useState(!hasGeminiApiKey());
+    const [apiKeyInput, setApiKeyInput] = useState('');
     const fileInputRef = useRef(null);
     const cameraInputRef = useRef(null);
+
+    // Save API key
+    const saveApiKey = () => {
+        if (apiKeyInput.trim()) {
+            setGeminiApiKey(apiKeyInput.trim());
+            setNeedsApiKey(false);
+            setAnalysisError('');
+        }
+    };
 
     // AI-powered food recognition
     const analyzePhoto = async (imageFile) => {
         setIsAnalyzing(true);
+        setAnalysisError('');
 
         try {
             const detected = await analyzePhotoAI(imageFile);
             setDetectedFoods(detected);
             setSelectedFoods(detected.map(f => f.id));
+            if (detected.length === 0) {
+                setAnalysisError('No food items detected. Try a clearer photo with food visible.');
+            }
         } catch (error) {
             console.error('AI analysis error:', error);
+            if (error.message === 'NO_API_KEY') {
+                setNeedsApiKey(true);
+                setAnalysisError('Gemini API key required. Enter your key below to enable AI photo analysis.');
+            } else {
+                setAnalysisError(error.message || 'Failed to analyze photo. Please try again.');
+            }
             setDetectedFoods([]);
         }
 
@@ -118,6 +140,45 @@ const PhotoLogger = () => {
                     <p>Take a photo of your meal for instant nutrition tracking</p>
                 </div>
             </div>
+
+            {/* API Key Setup */}
+            {needsApiKey && (
+                <div className="card" style={{ marginBottom: 'var(--space-lg)', padding: 'var(--space-lg)', borderLeft: '4px solid var(--gold-500)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)', marginBottom: 'var(--space-md)' }}>
+                        <Key size={20} style={{ color: 'var(--gold-500)' }} />
+                        <h3 style={{ margin: 0 }}>Gemini API Key Required</h3>
+                    </div>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--font-size-sm)', marginBottom: 'var(--space-md)' }}>
+                        AI photo analysis uses Google Gemini Vision. Get a free API key from{' '}
+                        <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-500)' }}>
+                            Google AI Studio
+                        </a>.
+                    </p>
+                    <div style={{ display: 'flex', gap: 'var(--space-sm)' }}>
+                        <input
+                            type="password"
+                            className="form-input"
+                            placeholder="Paste your Gemini API key"
+                            value={apiKeyInput}
+                            onChange={(e) => setApiKeyInput(e.target.value)}
+                            style={{ flex: 1 }}
+                        />
+                        <button className="btn btn-primary" onClick={saveApiKey} disabled={!apiKeyInput.trim()}>
+                            Save Key
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Analysis Error */}
+            {analysisError && !needsApiKey && (
+                <div className="card" style={{ marginBottom: 'var(--space-lg)', padding: 'var(--space-md)', borderLeft: '4px solid var(--error)', background: 'rgba(231, 76, 60, 0.05)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)', color: 'var(--error)' }}>
+                        <AlertTriangle size={18} />
+                        <span style={{ fontSize: 'var(--font-size-sm)' }}>{analysisError}</span>
+                    </div>
+                </div>
+            )}
 
             {/* Upload Options */}
             {!photoPreview && (
