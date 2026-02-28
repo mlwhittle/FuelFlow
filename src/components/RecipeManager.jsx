@@ -333,6 +333,57 @@ const RecipeManager = () => {
                         />
                     </div>
 
+                    {/* Quick Recipe Reference */}
+                    <div style={{ marginBottom: 'var(--space-lg)' }}>
+                        <h3 style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)', marginBottom: 'var(--space-sm)', fontWeight: 600 }}>
+                            🔗 Quick Recipe Reference
+                        </h3>
+                        <div style={{ display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap' }}>
+                            <a href="https://www.allrecipes.com/" target="_blank" rel="noopener noreferrer"
+                                style={{
+                                    display: 'flex', alignItems: 'center', gap: 'var(--space-xs)',
+                                    padding: 'var(--space-sm) var(--space-md)',
+                                    background: 'var(--bg-secondary)', borderRadius: 'var(--radius-lg)',
+                                    color: 'var(--text-primary)', textDecoration: 'none',
+                                    fontSize: 'var(--font-size-sm)', fontWeight: 500,
+                                    border: '1px solid var(--border)', transition: 'all 0.2s ease'
+                                }}
+                                onMouseEnter={(e) => { e.target.style.borderColor = 'var(--primary-500)'; e.target.style.background = 'var(--bg-tertiary)'; }}
+                                onMouseLeave={(e) => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = 'var(--bg-secondary)'; }}
+                            >
+                                🍳 AllRecipes
+                            </a>
+                            <a href="https://www.seriouseats.com/" target="_blank" rel="noopener noreferrer"
+                                style={{
+                                    display: 'flex', alignItems: 'center', gap: 'var(--space-xs)',
+                                    padding: 'var(--space-sm) var(--space-md)',
+                                    background: 'var(--bg-secondary)', borderRadius: 'var(--radius-lg)',
+                                    color: 'var(--text-primary)', textDecoration: 'none',
+                                    fontSize: 'var(--font-size-sm)', fontWeight: 500,
+                                    border: '1px solid var(--border)', transition: 'all 0.2s ease'
+                                }}
+                                onMouseEnter={(e) => { e.target.style.borderColor = 'var(--primary-500)'; e.target.style.background = 'var(--bg-tertiary)'; }}
+                                onMouseLeave={(e) => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = 'var(--bg-secondary)'; }}
+                            >
+                                🔥 Serious Eats
+                            </a>
+                            <a href="https://www.thespruceeats.com/" target="_blank" rel="noopener noreferrer"
+                                style={{
+                                    display: 'flex', alignItems: 'center', gap: 'var(--space-xs)',
+                                    padding: 'var(--space-sm) var(--space-md)',
+                                    background: 'var(--bg-secondary)', borderRadius: 'var(--radius-lg)',
+                                    color: 'var(--text-primary)', textDecoration: 'none',
+                                    fontSize: 'var(--font-size-sm)', fontWeight: 500,
+                                    border: '1px solid var(--border)', transition: 'all 0.2s ease'
+                                }}
+                                onMouseEnter={(e) => { e.target.style.borderColor = 'var(--primary-500)'; e.target.style.background = 'var(--bg-tertiary)'; }}
+                                onMouseLeave={(e) => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = 'var(--bg-secondary)'; }}
+                            >
+                                🌿 The Spruce Eats
+                            </a>
+                        </div>
+                    </div>
+
                     {/* Recipe Grid */}
                     {filteredRecipes.length === 0 ? (
                         <div className="empty-state card">
