@@ -161,33 +161,50 @@ const ActivityTracker = () => {
                 </div>
             )}
 
-            {/* Device Integration - Coming Soon */}
-            <div className="device-integration card">
-                <div className="integration-header">
-                    <Activity size={24} />
-                    <h4>Fitness Device Integration</h4>
+            {/* Motivation Banner */}
+            <div className="activity-banner card" style={{
+                background: 'linear-gradient(135deg, var(--primary-600) 0%, var(--navy-900, #0C1B3A) 100%)',
+                color: 'white',
+                padding: 'var(--space-xl)',
+                borderRadius: 'var(--radius-xl)',
+                position: 'relative',
+                overflow: 'hidden'
+            }}>
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ fontSize: '2.5rem', marginBottom: 'var(--space-sm)' }}>🏃‍♂️💪🔥</div>
+                    <h3 style={{ fontSize: 'var(--font-size-xl)', fontWeight: 700, margin: '0 0 var(--space-sm)' }}>
+                        Every Step Counts
+                    </h3>
+                    <p style={{ opacity: 0.85, fontSize: 'var(--font-size-sm)', maxWidth: '400px', lineHeight: 1.5 }}>
+                        Log your workouts, track your calories burned, and watch your progress grow.
+                        Consistency beats perfection — keep moving!
+                    </p>
+                    <div style={{ display: 'flex', gap: 'var(--space-lg)', marginTop: 'var(--space-lg)' }}>
+                        <div>
+                            <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 800 }}>50+</div>
+                            <div style={{ fontSize: 'var(--font-size-xs)', opacity: 0.7 }}>Exercises</div>
+                        </div>
+                        <div>
+                            <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 800 }}>7</div>
+                            <div style={{ fontSize: 'var(--font-size-xs)', opacity: 0.7 }}>Categories</div>
+                        </div>
+                        <div>
+                            <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 800 }}>✓</div>
+                            <div style={{ fontSize: 'var(--font-size-xs)', opacity: 0.7 }}>Custom Entries</div>
+                        </div>
+                    </div>
                 </div>
-                <p>Connect your fitness tracker to automatically sync workouts and activity data.</p>
-                <div className="integration-options">
-                    <button className="integration-btn" disabled>
-                        <img src="https://www.gstatic.com/images/branding/product/2x/google_fit_512dp.png" alt="Google Fit" className="integration-logo" />
-                        <span>Google Fit</span>
-                        <span className="coming-soon-badge">Coming Soon</span>
-                    </button>
-                    <button className="integration-btn" disabled>
-                        <span className="apple-health-icon">❤️</span>
-                        <span>Apple Health</span>
-                        <span className="coming-soon-badge">Coming Soon</span>
-                    </button>
-                    <button className="integration-btn" disabled>
-                        <span className="fitbit-icon">💙</span>
-                        <span>Fitbit</span>
-                        <span className="coming-soon-badge">Coming Soon</span>
-                    </button>
-                </div>
-                <p className="integration-note">
-                    <strong>Manual logging available now.</strong> Device sync coming in future updates.
-                </p>
+                {/* Decorative circles */}
+                <div style={{
+                    position: 'absolute', top: '-30px', right: '-30px',
+                    width: '150px', height: '150px', borderRadius: '50%',
+                    background: 'rgba(218, 165, 32, 0.15)'
+                }} />
+                <div style={{
+                    position: 'absolute', bottom: '-20px', right: '60px',
+                    width: '80px', height: '80px', borderRadius: '50%',
+                    background: 'rgba(59, 114, 230, 0.2)'
+                }} />
             </div>
 
             {/* Exercise Search */}
