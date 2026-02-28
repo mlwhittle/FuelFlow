@@ -616,6 +616,63 @@ a:hover {
 }
 
 /* ========================================
+   MOBILE-FIRST ENHANCEMENTS
+   ======================================== */
+@media (max-width: 968px) {
+  .main-content {
+    padding-bottom: 72px;
+    /* Space for bottom tab bar */
+  }
+
+  .footer {
+    padding-bottom: calc(72px + var(--space-xl));
+  }
+
+  /* Larger touch targets on mobile */
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .form-input,
+  select {
+    min-height: 48px;
+    font-size: 16px !important;
+    /* Prevents iOS zoom on focus */
+  }
+
+  /* Disable text selection on interactive elements */
+  button,
+  a,
+  .nav-item,
+  .bottom-tab {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Smooth scrolling */
+  .main-content {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 600px) and (max-width: 968px) {
+  .main-content {
+    padding: var(--space-md) var(--space-xl) 72px;
+  }
+}
+
+/* Safe area support for notched phones */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  @media (max-width: 968px) {
+    .main-content {
+      padding-bottom: calc(72px + env(safe-area-inset-bottom));
+    }
+  }
+}
+
+/* ========================================
    COMING SOON PAGE
    ======================================== */
 .coming-soon {
