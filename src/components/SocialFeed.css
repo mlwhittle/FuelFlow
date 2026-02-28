@@ -1,0 +1,316 @@
+/* ========================================
+   SOCIAL FEED
+   ======================================== */
+.social-feed {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+}
+
+.social-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+}
+
+.social-header h1 {
+    margin-bottom: var(--space-xs);
+}
+
+.social-header p {
+    margin: 0;
+}
+
+/* Tabs */
+.social-tabs {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: var(--space-sm);
+}
+
+.social-tab {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-lg);
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.social-tab:hover {
+    background: var(--bg-tertiary);
+}
+
+.social-tab.active {
+    background: var(--primary-500);
+    color: white;
+}
+
+/* New Post */
+.new-post {
+    margin-bottom: var(--space-xl);
+}
+
+.new-post textarea {
+    resize: vertical;
+    min-height: 80px;
+    margin-bottom: var(--space-md);
+}
+
+.new-post-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Posts */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.post-card {
+    padding: var(--space-lg) !important;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.post-user {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.user-avatar {
+    font-size: 2rem;
+}
+
+.user-name {
+    display: block;
+    font-weight: 700;
+}
+
+.user-level {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--primary-500);
+    font-weight: 600;
+}
+
+.post-time {
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+}
+
+.post-content {
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+}
+
+.post-badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    background: var(--primary-50);
+    border: 1px solid var(--primary-200);
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+}
+
+[data-theme="dark"] .post-badge {
+    background: var(--primary-900);
+    border-color: var(--primary-700);
+}
+
+.post-actions {
+    display: flex;
+    gap: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-color);
+}
+
+.post-action {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: none;
+    border: none;
+    color: var(--text-tertiary);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    padding: var(--space-xs);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.post-action:hover {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+.post-action.liked {
+    color: #ef4444;
+}
+
+/* Challenges */
+.challenges-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.challenge-card {
+    padding: var(--space-lg) !important;
+}
+
+.challenge-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.challenge-emoji {
+    font-size: 2rem;
+}
+
+.challenge-header h4 {
+    margin-bottom: 2px;
+}
+
+.challenge-header p {
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+.challenge-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.challenge-participants {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+    font-weight: 600;
+}
+
+.challenge-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+}
+
+.challenge-bar {
+    width: 100px;
+    height: 8px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.challenge-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+}
+
+/* Leaderboard */
+.leaderboard h3 {
+    margin-bottom: var(--space-lg);
+}
+
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.lb-entry {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    transition: transform var(--transition-fast);
+}
+
+.lb-entry:hover {
+    transform: translateX(4px);
+}
+
+.lb-entry.you {
+    background: var(--primary-50);
+    border: 2px solid var(--primary-300);
+}
+
+[data-theme="dark"] .lb-entry.you {
+    background: var(--primary-900);
+}
+
+.lb-rank {
+    font-size: var(--font-size-lg);
+    font-weight: 800;
+    min-width: 32px;
+    text-align: center;
+}
+
+.lb-avatar {
+    font-size: 1.5rem;
+}
+
+.lb-info {
+    flex: 1;
+}
+
+.lb-name {
+    display: block;
+    font-weight: 700;
+}
+
+.lb-streak {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+}
+
+.lb-points {
+    font-weight: 800;
+    color: var(--primary-500);
+    font-size: var(--font-size-lg);
+}
+
+@media (max-width: 480px) {
+    .social-tabs {
+        overflow-x: auto;
+    }
+
+    .challenge-stats {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+}

@@ -1,0 +1,113 @@
+.settings {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+}
+
+.settings-header {
+    margin-bottom: var(--space-xl);
+}
+
+.settings-header h1 {
+    margin-bottom: var(--space-xs);
+}
+
+.settings-header p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.settings-section {
+    margin-bottom: var(--space-xl);
+    padding: var(--space-xl);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    color: var(--primary-500);
+}
+
+.section-header h3 {
+    margin: 0;
+}
+
+.section-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+}
+
+.bmi-display {
+    margin-top: var(--space-xl);
+    padding: var(--space-xl);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bmi-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.bmi-number {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.bmi-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.bmi-category {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+}
+
+.macros-section {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--border-color);
+}
+
+.macros-section h4 {
+    margin-bottom: var(--space-lg);
+    color: var(--text-primary);
+}
+
+.data-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .settings {
+        padding: var(--space-md);
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bmi-display {
+        flex-direction: column;
+        gap: var(--space-lg);
+    }
+}

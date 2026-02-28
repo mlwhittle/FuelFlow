@@ -1,0 +1,299 @@
+/* ========================================
+   MEAL PLANNER
+   ======================================== */
+.meal-planner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+}
+
+.planner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.planner-header h1 {
+    margin-bottom: var(--space-xs);
+}
+
+.planner-header p {
+    margin: 0;
+}
+
+/* Grocery List */
+.grocery-list {
+    margin-bottom: var(--space-xl);
+}
+
+.grocery-list h3 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.grocery-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-sm);
+}
+
+.grocery-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+}
+
+.grocery-name {
+    font-weight: 700;
+}
+
+.grocery-details {
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+}
+
+.empty-grocery {
+    text-align: center;
+    color: var(--text-tertiary);
+}
+
+/* Day Tabs */
+.day-tabs {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xl);
+    overflow-x: auto;
+    padding-bottom: var(--space-xs);
+}
+
+.day-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: var(--space-sm) var(--space-lg);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    background: var(--bg-tertiary);
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-secondary);
+    min-width: 70px;
+    transition: all var(--transition-fast);
+}
+
+.day-tab:hover {
+    background: var(--bg-primary);
+}
+
+.day-tab.active {
+    background: var(--primary-500);
+    color: white;
+    border-color: var(--primary-600);
+}
+
+.day-tab.has-items .day-cal {
+    font-size: var(--font-size-xs);
+    opacity: 0.8;
+}
+
+.day-short {
+    font-size: var(--font-size-sm);
+}
+
+/* Day Summary */
+.day-summary {
+    margin-bottom: var(--space-xl);
+}
+
+.day-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.day-actions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.day-macros {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.day-macro {
+    text-align: center;
+}
+
+.macro-val {
+    display: block;
+    font-size: var(--font-size-xl);
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.macro-lbl {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.calorie-bar {
+    position: relative;
+    height: 28px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.calorie-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+    transition: width var(--transition-base);
+}
+
+.calorie-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    color: var(--text-primary);
+    mix-blend-mode: difference;
+}
+
+/* Meal Sections */
+.meal-section {
+    margin-bottom: var(--space-md);
+}
+
+.meal-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.meal-section-header h4 {
+    margin: 0;
+}
+
+.add-food-search {
+    margin-bottom: var(--space-md);
+    position: relative;
+}
+
+.search-drop {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.search-drop-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    transition: background var(--transition-fast);
+}
+
+.search-drop-item:hover {
+    background: var(--bg-tertiary);
+}
+
+.search-drop-cal {
+    color: var(--primary-500);
+    font-weight: 700;
+}
+
+.meal-empty {
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: var(--font-size-sm);
+    padding: var(--space-md);
+}
+
+.meal-foods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.planned-food {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+}
+
+.planned-food-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.planned-food-name {
+    display: block;
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+}
+
+.planned-food-serving {
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+}
+
+.planned-food-macros {
+    display: flex;
+    gap: var(--space-sm);
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .day-macros {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .planned-food {
+        flex-wrap: wrap;
+    }
+
+    .planned-food-macros {
+        width: 100%;
+        justify-content: space-around;
+    }
+}

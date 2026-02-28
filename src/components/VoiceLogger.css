@@ -1,0 +1,377 @@
+/* ========================================
+   VOICE LOGGER
+   ======================================== */
+.voice-logger {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+}
+
+.voice-header {
+    margin-bottom: var(--space-xl);
+}
+
+.voice-header h1 {
+    margin-bottom: var(--space-xs);
+}
+
+.voice-header p {
+    margin: 0;
+}
+
+/* Microphone Section */
+.voice-mic-section {
+    margin-bottom: var(--space-xl);
+}
+
+.mic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-2xl) 0;
+}
+
+.mic-button {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: none;
+    background: var(--gradient-primary);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+}
+
+.mic-button:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 6px 30px rgba(59, 130, 246, 0.4);
+}
+
+.mic-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mic-button.listening {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+    animation: mic-breathe 1.5s ease-in-out infinite;
+}
+
+@keyframes mic-breathe {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Pulse rings */
+.mic-pulse-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(239, 68, 68, 0.3);
+    animation: pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.ring-1 {
+    width: 130px;
+    height: 130px;
+    animation-delay: 0s;
+}
+
+.ring-2 {
+    width: 160px;
+    height: 160px;
+    animation-delay: 0.5s;
+}
+
+.ring-3 {
+    width: 190px;
+    height: 190px;
+    animation-delay: 1s;
+}
+
+@keyframes pulse-ring {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+}
+
+.mic-label {
+    margin-top: var(--space-xl);
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.mic-hint {
+    margin-top: var(--space-sm);
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+    font-style: italic;
+    text-align: center;
+}
+
+/* Transcript */
+.transcript-section {
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+}
+
+.transcript-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.transcript-header h4 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: 0;
+}
+
+.transcript-text {
+    font-size: var(--font-size-lg);
+    line-height: 1.8;
+    min-height: 40px;
+}
+
+.final-text {
+    color: var(--text-primary);
+}
+
+.interim-text {
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+/* Error */
+.voice-error {
+    margin-top: var(--space-lg);
+    padding: var(--space-md);
+    background: hsla(0, 85%, 60%, 0.1);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.voice-error p {
+    color: var(--error);
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Actions */
+.voice-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-xl);
+}
+
+/* Meal Selector */
+.meal-selector {
+    margin-bottom: var(--space-xl);
+}
+
+.meal-selector h4 {
+    margin-bottom: var(--space-md);
+}
+
+.meal-options {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.meal-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-lg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-full);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.meal-btn:hover {
+    border-color: var(--primary-400);
+    color: var(--primary-500);
+}
+
+.meal-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+    border-color: transparent;
+}
+
+/* Parsed Foods */
+.parsed-foods {
+    margin-bottom: var(--space-xl);
+}
+
+.parsed-foods h3 {
+    margin-bottom: var(--space-lg);
+}
+
+.parsed-food-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.parsed-food-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    border: 2px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.parsed-food-item.selected {
+    border-color: var(--primary-300);
+    background: var(--primary-50);
+}
+
+[data-theme="dark"] .parsed-food-item.selected {
+    background: var(--primary-900);
+}
+
+.check-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.check-btn.checked {
+    background: var(--primary-500);
+    border-color: var(--primary-500);
+    color: white;
+}
+
+.parsed-food-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.parsed-food-name {
+    display: block;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+}
+
+.parsed-food-search {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+    margin-top: 2px;
+}
+
+.parsed-food-macros {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-xs);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.parsed-food-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-shrink: 0;
+}
+
+.servings-mini {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+}
+
+.remove-btn {
+    color: var(--error) !important;
+}
+
+.log-all-btn {
+    width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .voice-logger {
+        padding: var(--space-md);
+    }
+
+    .mic-button {
+        width: 80px;
+        height: 80px;
+    }
+
+    .ring-1 {
+        width: 110px;
+        height: 110px;
+    }
+
+    .ring-2 {
+        width: 135px;
+        height: 135px;
+    }
+
+    .ring-3 {
+        width: 160px;
+        height: 160px;
+    }
+
+    .parsed-food-item {
+        flex-wrap: wrap;
+    }
+
+    .parsed-food-macros {
+        flex-wrap: wrap;
+        gap: var(--space-sm);
+    }
+
+    .meal-options {
+        justify-content: center;
+    }
+}

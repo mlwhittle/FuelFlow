@@ -1,0 +1,215 @@
+/* ========================================
+   ADAPTIVE COACH
+   ======================================== */
+.adaptive-coach {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+}
+
+.coach-header {
+    margin-bottom: var(--space-xl);
+}
+
+.coach-header h1 {
+    margin-bottom: var(--space-xs);
+}
+
+.coach-header p {
+    margin: 0;
+}
+
+.coach-range {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+}
+
+/* Stats */
+.coach-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.coach-stat {
+    text-align: center;
+    padding: var(--space-lg) !important;
+}
+
+.coach-stat-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+}
+
+.coach-stat-value {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.coach-stat-vs {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+    margin-top: var(--space-xs);
+}
+
+.coach-stat-vs .over {
+    color: var(--error);
+    font-weight: 700;
+}
+
+.coach-stat-vs .under {
+    color: var(--success);
+    font-weight: 700;
+}
+
+/* Calorie Adjustment */
+.calorie-adjustment {
+    margin-bottom: var(--space-xl);
+    background: linear-gradient(135deg, hsla(200, 95%, 50%, 0.05), hsla(270, 70%, 60%, 0.05));
+    border: 2px solid var(--primary-200);
+}
+
+[data-theme="dark"] .calorie-adjustment {
+    border-color: var(--primary-800);
+}
+
+.adjust-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    color: var(--primary-500);
+}
+
+.adjust-header h3 {
+    margin: 0;
+}
+
+.calorie-adjustment>p {
+    margin-bottom: var(--space-lg);
+}
+
+.adjust-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xl);
+}
+
+.adjust-from,
+.adjust-to {
+    text-align: center;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-lg);
+}
+
+.adjust-from {
+    background: var(--bg-tertiary);
+}
+
+.adjust-to {
+    background: var(--primary-50);
+    border: 2px solid var(--primary-300);
+}
+
+[data-theme="dark"] .adjust-to {
+    background: var(--primary-900);
+}
+
+.adjust-from span,
+.adjust-to span {
+    display: block;
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+}
+
+.adjust-from strong,
+.adjust-to strong {
+    font-size: var(--font-size-xl);
+}
+
+/* Recommendations */
+.coach-recommendations h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.recs-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.rec-card {
+    display: flex;
+    gap: var(--space-lg);
+    padding: var(--space-lg) !important;
+    border-left: 4px solid var(--primary-500);
+}
+
+.rec-card.success {
+    border-left-color: var(--success);
+}
+
+.rec-card.warning {
+    border-left-color: var(--warning);
+}
+
+.rec-card.tip {
+    border-left-color: var(--info);
+}
+
+.rec-card.info {
+    border-left-color: var(--primary-400);
+}
+
+.rec-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    padding-top: 2px;
+}
+
+.rec-content h4 {
+    margin-bottom: var(--space-sm);
+}
+
+.rec-detail {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-sm) !important;
+}
+
+.rec-action {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .coach-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .adjust-visual {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .adjust-visual svg {
+        transform: rotate(90deg);
+    }
+}
