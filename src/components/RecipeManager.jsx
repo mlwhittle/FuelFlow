@@ -334,52 +334,93 @@ const RecipeManager = () => {
                     </div>
 
                     {/* Quick Recipe Reference */}
-                    <div style={{ marginBottom: 'var(--space-lg)' }}>
-                        <h3 style={{ fontSize: 'var(--font-size-sm)', color: 'var(--text-secondary)', marginBottom: 'var(--space-sm)', fontWeight: 600 }}>
+                    <div style={{ marginBottom: 'var(--space-xl)' }}>
+                        <h3 style={{ fontSize: 'var(--font-size-base)', color: 'var(--text-primary)', marginBottom: 'var(--space-xs)', fontWeight: 700 }}>
                             🔗 Quick Recipe Reference
                         </h3>
-                        <div style={{ display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap' }}>
+                        <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)', marginBottom: 'var(--space-md)', lineHeight: 1.5 }}>
+                            Tap any card below to browse thousands of free recipes. Find a meal you love, then come back and add it to your meal plan!
+                        </p>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--space-md)' }}>
+                            {/* AllRecipes */}
                             <a href="https://www.allrecipes.com/" target="_blank" rel="noopener noreferrer"
+                                className="card"
                                 style={{
-                                    display: 'flex', alignItems: 'center', gap: 'var(--space-xs)',
-                                    padding: 'var(--space-sm) var(--space-md)',
-                                    background: 'var(--bg-secondary)', borderRadius: 'var(--radius-lg)',
-                                    color: 'var(--text-primary)', textDecoration: 'none',
-                                    fontSize: 'var(--font-size-sm)', fontWeight: 500,
-                                    border: '1px solid var(--border)', transition: 'all 0.2s ease'
+                                    textDecoration: 'none', color: 'inherit', overflow: 'hidden',
+                                    transition: 'transform 0.2s ease, box-shadow 0.2s ease', cursor: 'pointer'
                                 }}
-                                onMouseEnter={(e) => { e.target.style.borderColor = 'var(--primary-500)'; e.target.style.background = 'var(--bg-tertiary)'; }}
-                                onMouseLeave={(e) => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = 'var(--bg-secondary)'; }}
+                                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(59,114,230,0.15)'; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = ''; }}
                             >
-                                🍳 AllRecipes
+                                <div style={{
+                                    background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)',
+                                    padding: 'var(--space-lg)', textAlign: 'center', color: 'white'
+                                }}>
+                                    <div style={{ fontSize: '2.5rem', marginBottom: 'var(--space-xs)' }}>🍳</div>
+                                    <div style={{ fontWeight: 800, fontSize: 'var(--font-size-lg)' }}>AllRecipes</div>
+                                </div>
+                                <div style={{ padding: 'var(--space-md)' }}>
+                                    <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)', lineHeight: 1.5, margin: '0 0 var(--space-sm)' }}>
+                                        The world's largest recipe community. Search by ingredient, cuisine, or dietary need.
+                                    </p>
+                                    <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--primary-500)', fontWeight: 600 }}>
+                                        Browse Recipes →
+                                    </span>
+                                </div>
                             </a>
+
+                            {/* Serious Eats */}
                             <a href="https://www.seriouseats.com/" target="_blank" rel="noopener noreferrer"
+                                className="card"
                                 style={{
-                                    display: 'flex', alignItems: 'center', gap: 'var(--space-xs)',
-                                    padding: 'var(--space-sm) var(--space-md)',
-                                    background: 'var(--bg-secondary)', borderRadius: 'var(--radius-lg)',
-                                    color: 'var(--text-primary)', textDecoration: 'none',
-                                    fontSize: 'var(--font-size-sm)', fontWeight: 500,
-                                    border: '1px solid var(--border)', transition: 'all 0.2s ease'
+                                    textDecoration: 'none', color: 'inherit', overflow: 'hidden',
+                                    transition: 'transform 0.2s ease, box-shadow 0.2s ease', cursor: 'pointer'
                                 }}
-                                onMouseEnter={(e) => { e.target.style.borderColor = 'var(--primary-500)'; e.target.style.background = 'var(--bg-tertiary)'; }}
-                                onMouseLeave={(e) => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = 'var(--bg-secondary)'; }}
+                                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(59,114,230,0.15)'; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = ''; }}
                             >
-                                🔥 Serious Eats
+                                <div style={{
+                                    background: 'linear-gradient(135deg, #D32F2F 0%, #F44336 100%)',
+                                    padding: 'var(--space-lg)', textAlign: 'center', color: 'white'
+                                }}>
+                                    <div style={{ fontSize: '2.5rem', marginBottom: 'var(--space-xs)' }}>🔥</div>
+                                    <div style={{ fontWeight: 800, fontSize: 'var(--font-size-lg)' }}>Serious Eats</div>
+                                </div>
+                                <div style={{ padding: 'var(--space-md)' }}>
+                                    <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)', lineHeight: 1.5, margin: '0 0 var(--space-sm)' }}>
+                                        Chef-tested, science-backed recipes. Perfect for leveling up your cooking skills.
+                                    </p>
+                                    <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--primary-500)', fontWeight: 600 }}>
+                                        Explore Recipes →
+                                    </span>
+                                </div>
                             </a>
+
+                            {/* The Spruce Eats */}
                             <a href="https://www.thespruceeats.com/" target="_blank" rel="noopener noreferrer"
+                                className="card"
                                 style={{
-                                    display: 'flex', alignItems: 'center', gap: 'var(--space-xs)',
-                                    padding: 'var(--space-sm) var(--space-md)',
-                                    background: 'var(--bg-secondary)', borderRadius: 'var(--radius-lg)',
-                                    color: 'var(--text-primary)', textDecoration: 'none',
-                                    fontSize: 'var(--font-size-sm)', fontWeight: 500,
-                                    border: '1px solid var(--border)', transition: 'all 0.2s ease'
+                                    textDecoration: 'none', color: 'inherit', overflow: 'hidden',
+                                    transition: 'transform 0.2s ease, box-shadow 0.2s ease', cursor: 'pointer'
                                 }}
-                                onMouseEnter={(e) => { e.target.style.borderColor = 'var(--primary-500)'; e.target.style.background = 'var(--bg-tertiary)'; }}
-                                onMouseLeave={(e) => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = 'var(--bg-secondary)'; }}
+                                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(59,114,230,0.15)'; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = ''; }}
                             >
-                                🌿 The Spruce Eats
+                                <div style={{
+                                    background: 'linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%)',
+                                    padding: 'var(--space-lg)', textAlign: 'center', color: 'white'
+                                }}>
+                                    <div style={{ fontSize: '2.5rem', marginBottom: 'var(--space-xs)' }}>🌿</div>
+                                    <div style={{ fontWeight: 800, fontSize: 'var(--font-size-lg)' }}>The Spruce Eats</div>
+                                </div>
+                                <div style={{ padding: 'var(--space-md)' }}>
+                                    <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--text-secondary)', lineHeight: 1.5, margin: '0 0 var(--space-sm)' }}>
+                                        Easy, beginner-friendly recipes with step-by-step guides. Great for quick weeknight meals.
+                                    </p>
+                                    <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--primary-500)', fontWeight: 600 }}>
+                                        Find Recipes →
+                                    </span>
+                                </div>
                             </a>
                         </div>
                     </div>
