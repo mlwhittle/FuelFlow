@@ -5,7 +5,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAcj0bJpjCw9R9vXHx1OSVZP4205NvhIaU",
+    apiKey: "AIzaSyAcj0bJpjCw9R9vXHxlOSVZP4205NvhIaU",
     authDomain: "fuelflow-app-579b9.firebaseapp.com",
     projectId: "fuelflow-app-579b9",
     storageBucket: "fuelflow-app-579b9.firebasestorage.app",
