@@ -28,6 +28,7 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
         { id: 'fasting', label: 'Fasting', icon: '⏱️' },
         { id: 'coach', label: 'Coach', icon: '🧠' },
         { id: 'mealPlan', label: 'Meals', icon: '📅' },
+        { id: 'groceryList', label: 'Groceries', icon: '🛒' },
         { id: 'social', label: 'Community', icon: '🌐' },
         { id: 'recipes', label: 'Recipes', icon: '📖' },
         { id: 'settings', label: 'Settings', icon: '⚙️' }
@@ -109,8 +110,8 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
                     <button
                         key={tab.id}
                         className={`bottom-tab ${tab.id === 'more'
-                                ? (showMoreMenu || isActiveInMore ? 'active' : '')
-                                : currentView === tab.id ? 'active' : ''
+                            ? (showMoreMenu || isActiveInMore ? 'active' : '')
+                            : currentView === tab.id ? 'active' : ''
                             }`}
                         onClick={() => handleNavClick(tab.id)}
                     >

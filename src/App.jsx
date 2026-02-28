@@ -12,6 +12,7 @@ import ProgressCharts from './components/ProgressCharts';
 import FastingTimer from './components/FastingTimer';
 import AdaptiveCoach from './components/AdaptiveCoach';
 import MealPlanner from './components/MealPlanner';
+import GroceryList from './components/GroceryList';
 import SocialFeed from './components/SocialFeed';
 import Settings from './components/Settings';
 import Login from './components/Login';
@@ -80,6 +81,8 @@ function App() {
         return <AdaptiveCoach />;
       case 'mealPlan':
         return <MealPlanner />;
+      case 'groceryList':
+        return <GroceryList />;
       case 'social':
         return <SocialFeed />;
       case 'recipes':
