@@ -3,6 +3,8 @@
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
+const DEFAULT_GEMINI_KEY = 'AIzaSyCyhhkk_-xLkqGVQ94523VhjwoCswlqHj8';
+
 let genAI = null;
 let model = null;
 
@@ -10,7 +12,7 @@ let model = null;
  * Get or set the Gemini API key
  */
 export const getGeminiApiKey = () => {
-    return localStorage.getItem('fuelflow_gemini_key') || '';
+    return localStorage.getItem('fuelflow_gemini_key') || DEFAULT_GEMINI_KEY;
 };
 
 export const setGeminiApiKey = (key) => {
