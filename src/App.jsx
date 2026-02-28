@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AppProvider } from './context/AppContext';
-import { onAuthChange, checkRedirectResult } from './services/authService';
+import { onAuthChange } from './services/authService';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import FoodLogger from './components/FoodLogger';
@@ -21,17 +21,14 @@ import './index.css';
 function App() {
   const [currentView, setCurrentView] = useState('dashboard');
   const [authUser, setAuthUser] = useState(null);
-  const [authView, setAuthView] = useState('login'); // 'login' | 'signup'
+  const [authView, setAuthView] = useState('login');
   const [skipAuth, setSkipAuth] = useState(() => {
     return localStorage.getItem('fuelflow_skipAuth') === 'true';
   });
   const [authLoading, setAuthLoading] = useState(true);
 
-  // Listen for auth state changes + handle Google redirect result
+  // Listen for auth state changes
   useEffect(() => {
-    // Check if returning from Google redirect
-    checkRedirectResult().catch(console.error);
-
     const unsubscribe = onAuthChange((user) => {
       setAuthUser(user);
       setAuthLoading(false);

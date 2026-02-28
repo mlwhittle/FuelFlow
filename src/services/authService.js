@@ -2,8 +2,7 @@
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signInWithRedirect,
-    getRedirectResult,
+    signInWithPopup,
     GoogleAuthProvider,
     signOut,
     sendPasswordResetEmail,
@@ -44,31 +43,14 @@ export const signInWithEmail = async (email, password) => {
 };
 
 /**
- * Sign in with Google (using redirect for better mobile support)
+ * Sign in with Google (popup)
  */
 export const signInWithGoogle = async () => {
     try {
-        await signInWithRedirect(auth, googleProvider);
-        // Page will redirect — result handled by checkRedirectResult()
-        return { user: null, error: null };
+        const result = await signInWithPopup(auth, googleProvider);
+        return { user: result.user, error: null };
     } catch (error) {
         console.error('Google sign-in error:', error.code, error.message);
-        return { user: null, error: getErrorMessage(error.code) };
-    }
-};
-
-/**
- * Check for redirect result (call on app load)
- */
-export const checkRedirectResult = async () => {
-    try {
-        const result = await getRedirectResult(auth);
-        if (result?.user) {
-            return { user: result.user, error: null };
-        }
-        return { user: null, error: null };
-    } catch (error) {
-        console.error('Redirect result error:', error.code, error.message);
         return { user: null, error: getErrorMessage(error.code) };
     }
 };
@@ -114,7 +96,7 @@ const getErrorMessage = (errorCode) => {
         case 'auth/invalid-email':
             return 'Please enter a valid email address.';
         case 'auth/operation-not-allowed':
-            return 'This sign-in method is not enabled. Please enable it in Firebase Console.';
+            return 'This sign-in method is not enabled. Enable it in Firebase Console.';
         case 'auth/weak-password':
             return 'Password should be at least 6 characters.';
         case 'auth/user-disabled':
@@ -128,11 +110,11 @@ const getErrorMessage = (errorCode) => {
         case 'auth/too-many-requests':
             return 'Too many attempts. Please try again later.';
         case 'auth/popup-closed-by-user':
-            return 'Sign-in was cancelled. Please try again.';
+            return 'Sign-in popup was closed. Please try again.';
         case 'auth/popup-blocked':
-            return 'Sign-in popup was blocked by your browser. Please allow popups.';
+            return 'Popup blocked by browser. Please allow popups for this site.';
         case 'auth/unauthorized-domain':
-            return 'This domain is not authorized for sign-in. Check Firebase Console.';
+            return 'This domain is not authorized. Check Firebase Console > Authentication > Settings.';
         case 'auth/account-exists-with-different-credential':
             return 'An account already exists with this email using a different sign-in method.';
         default:
