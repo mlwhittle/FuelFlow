@@ -222,11 +222,11 @@ const PhotoLogger = () => {
                         </button>
                     </div>
 
-                    {/* Demo Info */}
+                    {/* AI Info */}
                     <div className="demo-info card">
                         <div className="demo-header">
                             <Sparkles size={24} />
-                            <h4>AI-Powered Recognition</h4>
+                            <h4>Powered by Google Gemini Vision AI</h4>
                         </div>
                         <p>
                             Our AI analyzes your food photos to automatically identify ingredients and estimate portions.
@@ -236,11 +236,7 @@ const PhotoLogger = () => {
                             <div className="demo-feature">✓ Identifies multiple foods</div>
                             <div className="demo-feature">✓ Estimates serving sizes</div>
                             <div className="demo-feature">✓ Calculates nutrition automatically</div>
-                            <div className="demo-feature">✓ 90%+ accuracy</div>
-                        </div>
-                        <div className="demo-note">
-                            <strong>Demo Mode:</strong> Currently using simulated AI detection.
-                            In production, this would connect to a real food recognition API like Clarifai or Nutritionix.
+                            <div className="demo-feature">✓ Powered by Gemini AI</div>
                         </div>
                     </div>
                 </div>

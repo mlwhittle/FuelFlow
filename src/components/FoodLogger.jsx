@@ -449,11 +449,8 @@ const FoodLogger = () => {
                         {isSearching && <Loader size={20} className="search-loader" />}
                     </div>
 
-                    {!enhancedSearchAvailable && (
-                        <div className="api-notice">
-                            <p>🔑 Using demo mode. <a href="https://fdc.nal.usda.gov/api-key-signup.html" target="_blank" rel="noopener noreferrer">Get free API key</a> for 300k+ foods</p>
-                        </div>
-                    )}
+
+
 
                     <div className="search-toggle">
                         <label className="toggle-label">
