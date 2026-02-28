@@ -175,22 +175,22 @@ const ActivityTracker = () => {
                     <h3 style={{ fontSize: 'var(--font-size-xl)', fontWeight: 700, margin: '0 0 var(--space-sm)' }}>
                         Every Step Counts
                     </h3>
-                    <p style={{ opacity: 0.85, fontSize: 'var(--font-size-sm)', maxWidth: '400px', lineHeight: 1.5 }}>
+                    <p style={{ color: '#ffffff', fontSize: 'var(--font-size-sm)', maxWidth: '400px', lineHeight: 1.5 }}>
                         Log your workouts, track your calories burned, and watch your progress grow.
                         Consistency beats perfection — keep moving!
                     </p>
                     <div style={{ display: 'flex', gap: 'var(--space-lg)', marginTop: 'var(--space-lg)' }}>
                         <div>
                             <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 800 }}>50+</div>
-                            <div style={{ fontSize: 'var(--font-size-xs)', opacity: 0.7 }}>Exercises</div>
+                            <div style={{ fontSize: 'var(--font-size-xs)', color: 'rgba(255,255,255,0.9)' }}>Exercises</div>
                         </div>
                         <div>
                             <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 800 }}>7</div>
-                            <div style={{ fontSize: 'var(--font-size-xs)', opacity: 0.7 }}>Categories</div>
+                            <div style={{ fontSize: 'var(--font-size-xs)', color: 'rgba(255,255,255,0.9)' }}>Categories</div>
                         </div>
                         <div>
                             <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 800 }}>✓</div>
-                            <div style={{ fontSize: 'var(--font-size-xs)', opacity: 0.7 }}>Custom Entries</div>
+                            <div style={{ fontSize: 'var(--font-size-xs)', color: 'rgba(255,255,255,0.9)' }}>Custom Entries</div>
                         </div>
                     </div>
                 </div>
