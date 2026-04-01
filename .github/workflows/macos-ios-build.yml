@@ -17,7 +17,7 @@ jobs:
       - name: ⚙️ Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: 📦 Install Front-End Dependencies
         run: npm install
@@ -26,7 +26,10 @@ jobs:
         run: npm run build
 
       - name: 🔄 Sync Capacitor iOS Logic
-        run: npx cap sync ios
+        run: |
+          node -v
+          npm -v
+          npx cap sync ios
 
       - name: 🍎 Install Native CocoaPods (Apple SDKs)
         run: |
