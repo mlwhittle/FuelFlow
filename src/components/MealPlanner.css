@@ -64,48 +64,101 @@
     color: var(--text-tertiary);
 }
 
-/* Day Tabs */
-.day-tabs {
+/* Date Slider */
+.date-slider-container {
     display: flex;
-    gap: var(--space-xs);
+    align-items: center;
+    gap: var(--space-sm);
     margin-bottom: var(--space-xl);
-    overflow-x: auto;
-    padding-bottom: var(--space-xs);
+    padding: var(--space-sm);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
 }
 
-.day-tab {
+.date-window {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    overflow: hidden;
+}
+
+.date-tab {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
-    padding: var(--space-sm) var(--space-lg);
-    border: 2px solid transparent;
+    justify-content: center;
+    padding: var(--space-sm);
     border-radius: var(--radius-md);
-    background: var(--bg-tertiary);
-    cursor: pointer;
-    font-weight: 700;
+    background: transparent;
     color: var(--text-secondary);
-    min-width: 70px;
-    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    min-width: 50px;
 }
 
-.day-tab:hover {
-    background: var(--bg-primary);
+.date-tab:hover {
+    background: var(--bg-tertiary);
 }
 
-.day-tab.active {
+.date-tab.active {
     background: var(--primary-500);
     color: white;
-    border-color: var(--primary-600);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-sm);
 }
 
-.day-tab.has-items .day-cal {
+.date-weekday {
     font-size: var(--font-size-xs);
-    opacity: 0.8;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
-.day-short {
-    font-size: var(--font-size-sm);
+.date-number {
+    font-size: var(--font-size-lg);
+    font-weight: 800;
+    margin-top: 2px;
+}
+
+.date-dot {
+    position: absolute;
+    bottom: 4px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--primary-500);
+}
+
+.date-tab.active .date-dot {
+    background: white;
+}
+
+.date-nav-btn {
+    color: var(--text-secondary);
+    padding: var(--space-xs);
+}
+
+.date-nav-btn:hover {
+    color: var(--primary-500);
+    background: var(--bg-tertiary);
+}
+
+.date-picker-wrapper {
+    position: relative;
+}
+
+.hidden-date-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
 }
 
 /* Day Summary */
@@ -197,6 +250,25 @@
 .add-food-search {
     margin-bottom: var(--space-md);
     position: relative;
+}
+
+.voice-search-btn {
+    transition: all var(--transition-fast);
+}
+
+.voice-search-btn:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.voice-search-btn.listening {
+    color: var(--primary-500);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.1); }
+    100% { transform: translateY(-50%) scale(1); }
 }
 
 .search-drop {

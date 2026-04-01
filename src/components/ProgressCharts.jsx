@@ -32,19 +32,19 @@ ChartJS.register(
 );
 
 const ProgressCharts = () => {
-    const { user, getWeightHistory, getHistoricalData, addWeightEntry, getTodayData } = useApp();
+    const { user, getMeasurementHistory, getHistoricalData, addMeasurementEntry, getTodayData } = useApp();
     const [timeRange, setTimeRange] = useState(7);
     const [activeChart, setActiveChart] = useState('calories');
     const [newWeight, setNewWeight] = useState('');
     const [showWeightInput, setShowWeightInput] = useState(false);
 
-    const weightData = getWeightHistory(timeRange);
+    const weightData = getMeasurementHistory(timeRange).filter(m => m.weight != null);
     const historicalData = getHistoricalData(timeRange);
     const todayData = getTodayData();
 
     const handleAddWeight = () => {
         if (!newWeight || parseFloat(newWeight) <= 0) return;
-        addWeightEntry(parseFloat(newWeight));
+        addMeasurementEntry({ weight: parseFloat(newWeight) });
         setNewWeight('');
         setShowWeightInput(false);
     };
@@ -111,13 +111,6 @@ const ProgressCharts = () => {
                 label: 'Calories Consumed',
                 data: historicalData.map(d => d.totalCalories),
                 backgroundColor: 'hsla(200, 95%, 50%, 0.7)',
-                borderRadius: 6,
-                borderSkipped: false
-            },
-            {
-                label: 'Calories Burned',
-                data: historicalData.map(d => d.exerciseCalories),
-                backgroundColor: 'hsla(145, 70%, 50%, 0.7)',
                 borderRadius: 6,
                 borderSkipped: false
             }
@@ -408,8 +401,8 @@ const ProgressCharts = () => {
             <div className="chart-container card">
                 {activeChart === 'calories' && (
                     <div className="chart-wrapper">
-                        <h3>Calorie Intake vs Burned</h3>
-                        <p>Daily calorie balance over the past {timeRange} days</p>
+                        <h3>Calorie Intake Trends</h3>
+                        <p>Daily calorie consumption over the past {timeRange} days</p>
                         <div className="chart-area">
                             <Bar data={calorieChartData} options={calorieChartOptions} />
                         </div>

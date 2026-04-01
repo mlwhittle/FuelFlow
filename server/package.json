@@ -1,0 +1,20 @@
+{
+  "name": "fuelflow-digital-staff",
+  "version": "1.0.0",
+  "description": "Agentic Orchestration Engine for FuelFlow",
+  "main": "orchestrator.js",
+  "type": "module",
+  "scripts": {
+    "start": "node orchestrator.js",
+    "dev": "nodemon orchestrator.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "@supabase/supabase-js": "^2.43.4",
+    "resend": "^3.2.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

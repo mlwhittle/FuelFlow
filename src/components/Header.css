@@ -5,10 +5,11 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--bg-secondary);
+    background: var(--glass-nav);
     border-bottom: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
-    backdrop-filter: blur(10px);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
 .header-container {
@@ -253,11 +254,13 @@
         left: 0;
         right: 0;
         z-index: 1000;
-        background: var(--bg-secondary);
+        background: var(--glass-nav);
         border-top: 1px solid var(--border-color);
         box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
         padding: var(--space-xs) 0;
         padding-bottom: max(var(--space-xs), env(safe-area-inset-bottom));
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
     }
 
     .bottom-tab {

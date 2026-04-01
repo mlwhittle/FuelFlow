@@ -18,45 +18,23 @@ const DEPARTMENTS = [
     { id: 'other', name: 'Other', icon: '🛒', color: '#6B7280' },
 ];
 
-// Demo grocery items
-const DEFAULT_ITEMS = {
-    produce: [
-        { id: 1, name: 'Spinach (baby)', qty: '5 oz bag', checked: false, fromRecipe: 'Greek Chicken Bowl' },
-        { id: 2, name: 'Avocados', qty: '3', checked: false, fromRecipe: 'Avocado Toast' },
-        { id: 3, name: 'Cherry Tomatoes', qty: '1 pint', checked: false, fromRecipe: 'Greek Chicken Bowl' },
-        { id: 4, name: 'Lemons', qty: '2', checked: false, fromRecipe: 'Lemon Herb Salmon' },
-        { id: 5, name: 'Sweet Potatoes', qty: '2 large', checked: false },
-        { id: 6, name: 'Red Onion', qty: '1', checked: false, fromRecipe: 'Greek Chicken Bowl' },
-        { id: 7, name: 'Fresh Basil', qty: '1 bunch', checked: false },
-    ],
-    protein: [
-        { id: 8, name: 'Chicken Breast', qty: '2 lbs', checked: false, fromRecipe: 'Greek Chicken Bowl' },
-        { id: 9, name: 'Salmon Fillets', qty: '4 (6oz each)', checked: false, fromRecipe: 'Lemon Herb Salmon' },
-        { id: 10, name: 'Ground Turkey', qty: '1 lb', checked: false },
-    ],
-    dairy: [
-        { id: 11, name: 'Greek Yogurt', qty: '32 oz', checked: false, fromRecipe: 'Overnight Oats' },
-        { id: 12, name: 'Feta Cheese', qty: '4 oz', checked: false, fromRecipe: 'Greek Chicken Bowl' },
-        { id: 13, name: 'Eggs (large)', qty: '1 dozen', checked: false },
-    ],
-    grains: [
-        { id: 14, name: 'Quinoa', qty: '1 bag', checked: false, fromRecipe: 'Greek Chicken Bowl' },
-        { id: 15, name: 'Rolled Oats', qty: '18 oz', checked: false, fromRecipe: 'Overnight Oats' },
-        { id: 16, name: 'Whole Wheat Bread', qty: '1 loaf', checked: false, fromRecipe: 'Avocado Toast' },
-    ],
-    condiments: [
-        { id: 17, name: 'Olive Oil (Extra Virgin)', qty: '1 bottle', checked: false },
-        { id: 18, name: 'Balsamic Vinegar', qty: '1 bottle', checked: false },
-    ],
-    spices: [
-        { id: 19, name: 'Cumin (ground)', qty: '1 jar', checked: false },
-        { id: 20, name: 'Oregano (dried)', qty: '1 jar', checked: false, fromRecipe: 'Greek Chicken Bowl' },
-    ],
+// Helper to guess department based on food name
+const guessDepartment = (name) => {
+    const n = name.toLowerCase();
+    if (n.match(/chicken|beef|pork|salmon|tuna|turkey|steak|bacon|meat/)) return 'protein';
+    if (n.match(/apple|banana|spinach|tomato|onion|garlic|potato|lettuce|carrot|avocado|lemon|lime|fruit|veg/)) return 'produce';
+    if (n.match(/milk|cheese|yogurt|butter|egg/)) return 'dairy';
+    if (n.match(/bread|bun|bagel|tortilla/)) return 'bakery';
+    if (n.match(/rice|pasta|oats|quinoa|cereal/)) return 'grains';
+    if (n.match(/oil|vinegar|sauce|dressing|mayo|ketchup|mustard/)) return 'condiments';
+    if (n.match(/salt|pepper|cumin|oregano|cinnamon|spice|seasoning/)) return 'spices';
+    return 'other';
 };
 
 const GroceryList = () => {
-    const { state } = useApp();
-    const [items, setItems] = useState(DEFAULT_ITEMS);
+    const { mealPlan, groceryItems, setGroceryItems } = useApp();
+    const items = groceryItems || {};
+    const setItems = setGroceryItems;
     const [collapsedDepts, setCollapsedDepts] = useState({});
     const [searchTerm, setSearchTerm] = useState('');
     const [showAddModal, setShowAddModal] = useState(false);
@@ -108,6 +86,56 @@ const GroceryList = () => {
         setItems(cleared);
     };
 
+    // Auto-sync from next 7 days of Meal Planner
+    const syncFromMealPlan = () => {
+        if (!mealPlan) return;
+        
+        const today = new Date();
+        const dates = [];
+        for(let i=0; i<7; i++) {
+            const d = new Date(today);
+            d.setDate(today.getDate() + i);
+            const offset = d.getTimezoneOffset() * 60000;
+            const localStr = new Date(d.getTime() - offset).toISOString().split('T')[0];
+            dates.push(localStr);
+        }
+
+        const newItems = { ...items };
+        let addedCount = 0;
+
+        dates.forEach(day => {
+            if(mealPlan[day]) {
+                ['breakfast', 'lunch', 'dinner', 'snack'].forEach(meal => {
+                    if(mealPlan[day][meal]) {
+                        mealPlan[day][meal].forEach(food => {
+                            const dept = guessDepartment(food.name);
+                            if (!newItems[dept]) newItems[dept] = [];
+                            
+                            const exists = newItems[dept].find(i => i.name.toLowerCase() === food.name.toLowerCase());
+                            if (!exists) {
+                                newItems[dept].push({
+                                    id: Date.now() + Math.random(),
+                                    name: food.name,
+                                    qty: `${food.servings || 1} x ${food.serving || 'serving'}`,
+                                    checked: false,
+                                    fromRecipe: meal
+                                });
+                                addedCount++;
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        if (addedCount > 0) {
+            setItems(newItems);
+            alert(`Auto-added ${addedCount} scheduled items to your grocery list!`);
+        } else {
+            alert("No new items found in your Meal Planner for the next 7 days.");
+        }
+    };
+
     // Count totals
     const totalItems = Object.values(items).flat().length;
     const checkedItems = Object.values(items).flat().filter(i => i.checked).length;
@@ -151,6 +179,9 @@ const GroceryList = () => {
                 <div className="grocery-header-top">
                     <h2><ShoppingCart size={24} /> Grocery List</h2>
                     <div className="grocery-header-actions">
+                        <button className="btn btn-sm btn-outline" onClick={syncFromMealPlan} title="Sync Weekly Meals">
+                            🗓️ Auto-Sync
+                        </button>
                         <button className="btn btn-sm btn-ghost" onClick={shareList} title="Copy list">
                             <Share2 size={18} />
                         </button>

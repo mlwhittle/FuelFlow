@@ -1,25 +1,33 @@
 import { useState, useEffect } from 'react';
 import { AppProvider } from './context/AppContext';
+import { SubscriptionProvider, useSubscription } from './context/SubscriptionContext';
 import { onAuthChange } from './services/authService';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import FoodLogger from './components/FoodLogger';
 import PhotoLogger from './components/PhotoLogger';
 import VoiceLogger from './components/VoiceLogger';
-import ActivityTracker from './components/ActivityTracker';
-import RecipeManager from './components/RecipeManager';
-import ProgressCharts from './components/ProgressCharts';
-import FastingTimer from './components/FastingTimer';
 import AdaptiveCoach from './components/AdaptiveCoach';
+import FastingTimer from './components/FastingTimer';
+import ProgressCharts from './components/ProgressCharts';
+import BodyMeasurements from './components/BodyMeasurements';
+import RecipeManager from './components/RecipeManager';
 import MealPlanner from './components/MealPlanner';
 import GroceryList from './components/GroceryList';
 import SocialFeed from './components/SocialFeed';
+import SpiritTracker from './components/SpiritTracker';
+import PastorDashboard from './components/PastorDashboard';
 import Settings from './components/Settings';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import PremiumGate from './components/PremiumGate';
+import SubscriptionSuccess from './components/SubscriptionSuccess';
+import MedicalDisclaimerModal from './components/MedicalDisclaimerModal';
+import OnboardingFlow from './components/OnboardingFlow';
+import FoundersClubUpsell from './components/FoundersClubUpsell';
 import './index.css';
 
-function App() {
+function AppContent() {
   const [currentView, setCurrentView] = useState('dashboard');
   const [authUser, setAuthUser] = useState(null);
   const [authView, setAuthView] = useState('login');
@@ -27,6 +35,28 @@ function App() {
     return localStorage.getItem('fuelflow_skipAuth') === 'true';
   });
   const [authLoading, setAuthLoading] = useState(true);
+  const { isPremium, isFeaturePremium } = useSubscription();
+
+  const [hasOnboarded, setHasOnboarded] = useState(() => {
+    return localStorage.getItem('fuelflow_onboarded') === 'true';
+  });
+
+  const handleCompleteOnboarding = () => {
+    localStorage.setItem('fuelflow_onboarded', 'true');
+    setHasOnboarded(true);
+    // Hard-lock: Force the paywall immediately after the Sunk-Cost funnel finishes generating its fake AI computation
+    if (!isPremium) {
+      setCurrentView('premiumGate:dashboard');
+    }
+  };
+
+  // Check for subscription success in URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('subscription') === 'success') {
+      setCurrentView('subscriptionSuccess');
+    }
+  }, []);
 
   // Listen for auth state changes
   useEffect(() => {
@@ -42,13 +72,23 @@ function App() {
     localStorage.setItem('fuelflow_skipAuth', 'true');
   };
 
+  // Navigate to a view - check premium status
+  const navigateToView = (view) => {
+    if (isFeaturePremium(view) && !isPremium) {
+      // Show premium gate for this feature
+      setCurrentView('premiumGate:' + view);
+    } else {
+      setCurrentView(view);
+    }
+  };
+
   // Show auth screen if not logged in and not skipped
   if (authLoading) {
     return (
       <div className="auth-page">
         <div style={{ textAlign: 'center' }}>
-          <span style={{ fontSize: '4rem' }}>🔥</span>
-          <p style={{ marginTop: '1rem', color: 'var(--text-secondary)' }}>Loading FuelFlow...</p>
+          <span style={{ fontSize: '4rem' }}>🕊️</span>
+          <p style={{ marginTop: '1rem', color: 'var(--text-secondary)' }}>Preparing your Sanctuary...</p>
         </div>
       </div>
     );
@@ -61,18 +101,54 @@ function App() {
     return <Login onSwitch={() => setAuthView('signup')} onSkip={handleSkipAuth} />;
   }
 
+  // Inject the Sunk-Cost Onboarding Funnel completely blocking the main app architecture
+  if (!hasOnboarded) {
+    return (
+      <div className="app">
+        <MedicalDisclaimerModal />
+        <main className="main-content" style={{ padding: 0 }}>
+          <OnboardingFlow onComplete={handleCompleteOnboarding} />
+        </main>
+      </div>
+    );
+  }
+
   const renderView = () => {
+    // Handle subscription success page
+    if (currentView === 'subscriptionSuccess') {
+      return (
+        <SubscriptionSuccess
+          onContinue={() => {
+            window.history.replaceState({}, '', window.location.pathname);
+            setCurrentView('dashboard');
+          }}
+        />
+      );
+    }
+
+    // Handle premium gate
+    if (currentView.startsWith('premiumGate:')) {
+      const feature = currentView.split(':')[1];
+      return (
+        <PremiumGate
+          feature={feature}
+          onBack={() => setCurrentView('dashboard')}
+          onFoundersClick={() => setCurrentView('foundersClub')}
+        />
+      );
+    }
+
     switch (currentView) {
       case 'dashboard':
-        return <Dashboard setCurrentView={setCurrentView} />;
+        return <Dashboard setCurrentView={navigateToView} />;
       case 'logger':
         return <FoodLogger />;
       case 'photoLogger':
         return <PhotoLogger />;
       case 'voiceLogger':
         return <VoiceLogger />;
-      case 'activity':
-        return <ActivityTracker />;
+      case 'measurements':
+        return <BodyMeasurements />;
       case 'progress':
         return <ProgressCharts />;
       case 'fasting':
@@ -85,30 +161,45 @@ function App() {
         return <GroceryList />;
       case 'social':
         return <SocialFeed />;
+      case 'spirit':
+        return <SpiritTracker />;
+      case 'admin':
+        return <PastorDashboard />;
       case 'recipes':
         return <RecipeManager />;
+      case 'foundersClub':
+        return <FoundersClubUpsell onDecline={() => setCurrentView('dashboard')} />;
       case 'settings':
-        return <Settings />;
+        return <Settings setCurrentView={navigateToView} />;
       default:
-        return <Dashboard setCurrentView={setCurrentView} />;
+        return <Dashboard setCurrentView={navigateToView} />;
     }
   };
 
   return (
+    <div className="app">
+      <MedicalDisclaimerModal />
+      <Header
+        currentView={currentView}
+        setCurrentView={navigateToView}
+        authUser={authUser}
+      />
+      <main className="main-content">
+        {renderView()}
+      </main>
+      <footer className="footer">
+        <p>© 2026 FuelFlow - Fueling the Temple, Flowing in the Spirit ✨</p>
+      </footer>
+    </div>
+  );
+}
+
+function App() {
+  return (
     <AppProvider>
-      <div className="app">
-        <Header
-          currentView={currentView}
-          setCurrentView={setCurrentView}
-          authUser={authUser}
-        />
-        <main className="main-content">
-          {renderView()}
-        </main>
-        <footer className="footer">
-          <p>© 2026 FuelFlow - Fuel your body, flow through life 🔥</p>
-        </footer>
-      </div>
+      <SubscriptionProvider>
+        <AppContent />
+      </SubscriptionProvider>
     </AppProvider>
   );
 }

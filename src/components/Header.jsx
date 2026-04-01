@@ -19,7 +19,8 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
                 { id: 'logger', label: 'Food Log', icon: '🍽️', desc: 'Search & log meals' },
                 { id: 'photoLogger', label: 'AI Photo', icon: '📸', desc: 'Snap a photo to log' },
                 { id: 'voiceLogger', label: 'Voice Log', icon: '🎙️', desc: 'Log by speaking' },
-                { id: 'activity', label: 'Activity', icon: '🏃', desc: 'Track exercise' },
+                { id: 'measurements', label: 'Measurements', icon: '📏', desc: 'Log body metrics' },
+                { id: 'spirit', label: 'Spiritual Diary', icon: '✨', desc: 'Log spiritual growth' }
             ]
         },
         {
@@ -49,13 +50,15 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
     const moreItems = [
         { id: 'photoLogger', label: 'AI Photo', icon: '📸' },
         { id: 'voiceLogger', label: 'Voice', icon: '🎙️' },
-        { id: 'activity', label: 'Activity', icon: '🏃' },
+        { id: 'measurements', label: 'Body Stats', icon: '📏' },
+        { id: 'spirit', label: 'Spiritual Diary', icon: '✨' },
         { id: 'coach', label: 'Coach', icon: '🧠' },
         { id: 'mealPlan', label: 'Meals', icon: '📅' },
         { id: 'groceryList', label: 'Groceries', icon: '🛒' },
         { id: 'social', label: 'Community', icon: '🌐' },
         { id: 'recipes', label: 'Recipes', icon: '📖' },
-        { id: 'settings', label: 'Settings', icon: '⚙️' }
+        { id: 'settings', label: 'Settings', icon: '⚙️' },
+        { id: 'admin', label: 'Admin', icon: '🛡️' }
     ];
 
     // Close dropdown on outside click
@@ -162,6 +165,13 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
                     </nav>
 
                     <div className="header-actions">
+                        <button
+                            className={`nav-item nav-settings ${currentView === 'admin' ? 'active' : ''}`}
+                            onClick={() => handleNavClick('admin')}
+                            title="Master Control Board"
+                        >
+                            🛡️
+                        </button>
                         <button
                             className={`nav-item nav-settings ${currentView === 'settings' ? 'active' : ''}`}
                             onClick={() => handleNavClick('settings')}

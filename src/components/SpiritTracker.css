@@ -1,0 +1,23 @@
+.spirit-tracker .tracker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-xl);
+}
+
+.spirit-tracker .log-type-selector {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.spirit-tracker .log-type-selector .btn {
+    flex: 1;
+    min-width: 100px;
+}
+
+@media (max-width: 600px) {
+    .spirit-tracker .log-type-selector .btn {
+        min-width: 45%;
+    }
+}

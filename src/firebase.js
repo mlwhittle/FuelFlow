@@ -3,6 +3,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getFunctions } from 'firebase/functions';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAcj0bJpjCw9R9vXHxlOSVZP4205NvhIaU",
@@ -20,5 +21,6 @@ const app = initializeApp(firebaseConfig);
 // Initialize services
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const functions = getFunctions(app, 'us-west2');
 
 export default app;

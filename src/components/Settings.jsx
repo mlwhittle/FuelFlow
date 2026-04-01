@@ -1,10 +1,12 @@
 import { useApp } from '../context/AppContext';
+import { useSubscription } from '../context/SubscriptionContext';
 import { User, Target, Activity as ActivityIcon, Download, Upload } from 'lucide-react';
 import { calculateBMR, calculateTDEE, calculateCalorieGoal, calculateMacros, calculateBMI, getBMICategory } from '../utils/calculations';
 import './Settings.css';
 
-const Settings = () => {
+const Settings = ({ setCurrentView }) => {
     const { user, setUser } = useApp();
+    const { isPremium, subscribe, manageSubscription, subscriptionData } = useSubscription();
 
     const handleUserUpdate = (updates) => {
         const updatedUser = { ...user, ...updates };
@@ -246,6 +248,114 @@ const Settings = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* Subscription Management */}
+            <div className="settings-section card">
+                <div className="section-header">
+                    <span style={{ fontSize: '1.5rem' }}>💎</span>
+                    <h3>Subscription</h3>
+                </div>
+
+                {isPremium ? (
+                    <div>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.75rem',
+                            padding: '1rem',
+                            background: 'linear-gradient(135deg, rgba(0, 200, 83, 0.15), rgba(0, 230, 118, 0.1))',
+                            borderRadius: '12px',
+                            marginBottom: '1rem',
+                            border: '1px solid rgba(0, 200, 83, 0.3)'
+                        }}>
+                            <span style={{ fontSize: '1.5rem' }}>✅</span>
+                            <div>
+                                <strong style={{ color: '#00c853' }}>FuelFlow Premium — Active</strong>
+                                <p style={{ fontSize: '0.85rem', opacity: 0.7, margin: '0.25rem 0 0' }}>
+                                    $19.99/month • All features unlocked
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '1rem' }}>
+                            To manage or cancel your subscription, visit Stripe's customer portal:
+                        </p>
+
+                        <button
+                            onClick={manageSubscription}
+                            className="btn btn-outline"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                width: '100%',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            ⚙️ Manage / Cancel Subscription
+                        </button>
+
+                        <p style={{ fontSize: '0.75rem', opacity: 0.5, marginTop: '0.75rem', textAlign: 'center' }}>
+                            You can cancel anytime. Your access continues until the end of your billing period.
+                        </p>
+                    </div>
+                ) : (
+                    <div>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.75rem',
+                            padding: '1rem',
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            borderRadius: '12px',
+                            marginBottom: '1rem',
+                            border: '1px solid rgba(255, 255, 255, 0.1)'
+                        }}>
+                            <span style={{ fontSize: '1.5rem' }}>🆓</span>
+                            <div>
+                                <strong>Free Plan</strong>
+                                <p style={{ fontSize: '0.85rem', opacity: 0.7, margin: '0.25rem 0 0' }}>
+                                    Dashboard, Food Logger, Settings
+                                </p>
+                            </div>
+                        </div>
+
+                        <button
+                            className="btn btn-primary"
+                            onClick={subscribe}
+                            style={{
+                                width: '100%',
+                                background: 'linear-gradient(135deg, #FFD700, #FF8C00)',
+                                color: '#0f1b3d',
+                                fontWeight: 700,
+                                fontSize: '1rem',
+                                padding: '0.9rem'
+                            }}
+                        >
+                            ✨ Upgrade to Premium — $19.99/month
+                        </button>
+                        
+                        <button
+                            onClick={() => setCurrentView('foundersClub')}
+                            style={{
+                                width: '100%',
+                                background: 'transparent',
+                                border: '2px solid #eab308',
+                                color: '#eab308',
+                                fontWeight: 800,
+                                fontSize: '1rem',
+                                padding: '0.9rem',
+                                borderRadius: '12px',
+                                marginTop: '12px',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                            }}
+                        >
+                            👑 Or Join the Founders Club (Save 60%)
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* Data Management */}

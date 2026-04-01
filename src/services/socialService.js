@@ -16,6 +16,7 @@ import { db } from '../firebase';
 
 const POSTS_COLLECTION = 'socialPosts';
 const CHALLENGES_COLLECTION = 'challenges';
+const WAR_ROOM_COLLECTION = 'warRoomRequests';
 
 /**
  * Subscribe to real-time social posts
@@ -67,6 +68,67 @@ export const createPost = async (user, content, type = 'general', badge = null) 
         console.error('Error creating post:', error);
         return { id: null, error: error.message };
     }
+};
+
+/**
+ * Create a private urgent prayer request (War Room)
+ */
+export const createWarRoomRequest = async (user, content) => {
+    try {
+        const request = {
+            user: {
+                name: user.displayName || user.email?.split('@')[0] || 'Anonymous',
+                avatar: getAvatarEmoji(user.displayName || ''),
+                uid: user.uid
+            },
+            content,
+            status: 'pending', // pending pastoral review
+            createdAt: serverTimestamp()
+        };
+
+        const docRef = await addDoc(collection(db, WAR_ROOM_COLLECTION), request);
+
+        // ENTERPRISE BACKEND ROUTING: Ping Whittle Media OS Central Dashboard
+        const wmOsWebhook = import.meta.env.VITE_WM_OS_WAR_ROOM_WEBHOOK;
+        if (wmOsWebhook) {
+            console.log("Broadcasting Urgent Request to Whittle Media OS...");
+            fetch(wmOsWebhook, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    source: 'FuelFlow_App',
+                    requestId: docRef.id,
+                    user: request.user,
+                    content: request.content,
+                    timestamp: new Date().toISOString()
+                })
+            }).catch(e => console.error("WM-OS Sync Failed (Silent Catch)", e));
+        }
+
+        return { id: docRef.id, error: null };
+    } catch (error) {
+        console.error('Error creating war room request:', error);
+        return { id: null, error: error.message };
+    }
+};
+
+/**
+ * Subscribe to War Room requests (Admin only)
+ */
+export const subscribeToWarRoom = (callback) => {
+    const q = query(collection(db, WAR_ROOM_COLLECTION), orderBy('createdAt', 'desc'));
+
+    return onSnapshot(q, (snapshot) => {
+        const requests = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+            createdAt: doc.data().createdAt?.toDate() || new Date()
+        }));
+        callback(requests);
+    }, (error) => {
+        console.error('Error subscribing to war room:', error);
+        callback([]);
+    });
 };
 
 /**

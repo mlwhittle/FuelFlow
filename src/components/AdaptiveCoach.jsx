@@ -1,14 +1,22 @@
 import { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Brain, TrendingUp, TrendingDown, Target, Lightbulb, ChevronRight, Zap } from 'lucide-react';
+import { generateCoachResponse } from '../services/aiCoachService';
 import './AdaptiveCoach.css';
 
 const AdaptiveCoach = () => {
-    const { user, getHistoricalData, getWeightHistory, foodLogs, exerciseLogs } = useApp();
+    const { user, getHistoricalData, getMeasurementHistory, foodLogs, exerciseLogs } = useApp();
     const [timeRange, setTimeRange] = useState(7);
+    
+    // Chat Interface State
+    const [chatQuery, setChatQuery] = useState('');
+    const [chatHistory, setChatHistory] = useState([
+        { role: 'assistant', text: "Hi! I'm your AI Coach. Ask me anything about your diet, macronutrients, or how to break a plateau!" }
+    ]);
+    const [isTyping, setIsTyping] = useState(false);
 
     const historicalData = getHistoricalData(timeRange);
-    const weightHistory = getWeightHistory(timeRange);
+    const weightHistory = getMeasurementHistory(timeRange);
 
     // Calculate averages
     const daysWithData = historicalData.filter(d => d.totalCalories > 0);
@@ -193,6 +201,36 @@ const AdaptiveCoach = () => {
 
     const recommendations = getRecommendations();
 
+    const handleAskCoach = async (e) => {
+        e.preventDefault();
+        if (!chatQuery.trim()) return;
+
+        const userText = chatQuery;
+        setChatHistory(prev => [...prev, { role: 'user', text: userText }]);
+        setChatQuery('');
+        setIsTyping(true);
+
+        // Package the user's current biometric state for the LLM
+        const userContext = {
+            goal: user.goal,
+            avgCalories: avgCalories,
+            avgProtein: avgProtein,
+            targetCalories: user.dailyCalories,
+            targetProtein: user.macros?.protein,
+            weightTrend: weeklyWeightChange
+        };
+
+        try {
+            const reply = await generateCoachResponse(userText, chatHistory, userContext);
+            setChatHistory(prev => [...prev, { role: 'assistant', text: reply }]);
+        } catch (error) {
+            console.error("Chat Error:", error);
+            setChatHistory(prev => [...prev, { role: 'assistant', text: "Sorry, I'm having trouble connecting right now. Please try again." }]);
+        } finally {
+            setIsTyping(false);
+        }
+    };
+
     return (
         <div className="adaptive-coach animate-fadeIn">
             <div className="coach-header">
@@ -200,6 +238,13 @@ const AdaptiveCoach = () => {
                     <h1>Adaptive Coach 🧠</h1>
                     <p>AI-powered insights based on your data</p>
                 </div>
+            </div>
+
+            {/* Prominent Medical Warning */}
+            <div style={{ padding: '16px', background: 'rgba(239, 68, 68, 0.1)', borderLeft: '4px solid var(--danger-500)', borderRadius: '8px', marginBottom: '24px' }}>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                    <strong style={{ color: 'var(--danger-600)' }}>⚠️ Medical Disclaimer:</strong> The AI Coach provides general educational guidance based on your data, not medical advice. Output may occasionally be inaccurate. Always consult a physician or registered dietitian before making significant changes to your diet, supplements, or physical training.
+                </p>
             </div>
 
             {/* Time Range */}
@@ -213,6 +258,79 @@ const AdaptiveCoach = () => {
                         {days} Days
                     </button>
                 ))}
+            </div>
+
+            {/* Direct Q&A Chat Interface */}
+            <div className="coach-chat-card card" style={{ marginBottom: '32px' }}>
+                <div className="chat-history" style={{ maxHeight: '250px', overflowY: 'auto', marginBottom: '16px', display: 'flex', flexDirection: 'column', gap: '12px', paddingRight: '8px' }}>
+                    {chatHistory.map((msg, idx) => (
+                        <div key={idx} style={{ 
+                            alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
+                            background: msg.role === 'user' ? 'var(--primary-500)' : 'var(--bg-tertiary)',
+                            color: msg.role === 'user' ? 'white' : 'var(--text-primary)',
+                            padding: '12px 16px',
+                            borderRadius: msg.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+                            maxWidth: '85%',
+                            fontSize: '0.95rem',
+                            lineHeight: 1.5,
+                            border: msg.role === 'assistant' ? '1px solid var(--glass-border)' : 'none'
+                        }}>
+                            {msg.text}
+                        </div>
+                    ))}
+                    {isTyping && (
+                        <div style={{ alignSelf: 'flex-start', color: 'var(--text-muted)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                            Coach is typing...
+                        </div>
+                    )}
+                </div>
+                <form onSubmit={handleAskCoach} style={{ 
+                    display: 'flex', 
+                    gap: '12px', 
+                    background: 'var(--bg-secondary)', 
+                    padding: '8px 8px 8px 24px', 
+                    borderRadius: '99px',
+                    border: '1px solid var(--border-color)',
+                    boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.03), 0 8px 16px rgba(0,0,0,0.06)',
+                    alignItems: 'center',
+                    marginTop: '16px'
+                }}>
+                    <input 
+                        type="text" 
+                        style={{ 
+                            flex: 1, 
+                            border: 'none', 
+                            background: 'transparent',
+                            outline: 'none',
+                            fontSize: '1rem',
+                            color: 'var(--text-primary)',
+                            padding: 0
+                        }}
+                        placeholder="Ask me about protein, cravings, or energy levels..." 
+                        value={chatQuery}
+                        onChange={(e) => setChatQuery(e.target.value)}
+                        disabled={isTyping}
+                    />
+                    <button type="submit" style={{
+                        background: 'var(--gradient-primary)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '99px',
+                        padding: '12px 28px',
+                        fontWeight: '700',
+                        fontSize: '0.95rem',
+                        cursor: (isTyping || !chatQuery.trim()) ? 'not-allowed' : 'pointer',
+                        transition: 'all 0.3s ease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        opacity: (isTyping || !chatQuery.trim()) ? 0.5 : 1,
+                        boxShadow: '0 4px 12px rgba(61, 150, 140, 0.4)'
+                    }} disabled={isTyping || !chatQuery.trim()}>
+                        <span>Ask Coach</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                </form>
             </div>
 
             {/* Weekly Summary Cards */}

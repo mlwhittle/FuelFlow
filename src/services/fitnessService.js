@@ -180,6 +180,97 @@ export const syncGoogleFit = async () => {
 };
 
 /**
+ * Extract duration in minutes from natural language text
+ */
+const extractDuration = (text) => {
+    const match = text.match(/(\d+)\s*(m|min|minute|mins|hr|hour)/i);
+    if (match) {
+        let val = parseInt(match[1]);
+        if (match[2].toLowerCase().startsWith('h')) val *= 60;
+        return val;
+    }
+    return null;
+};
+
+/**
+ * Parses a natural language sentence and returns suggested exercises
+ * e.g., "I ran for 30 minutes and did some yoga"
+ * @param {string} text - User input
+ * @returns {Array} List of matched exercises with duration
+ */
+export const parseNaturalLanguageActivity = (text) => {
+    const lowerText = text.toLowerCase();
+    const results = [];
+    const duration = extractDuration(text) || 30; // default 30 mins
+
+    // Hardcoded friendly matches based on common phrases
+    if (lowerText.includes('ran') || lowerText.includes('run') || lowerText.includes('jog')) {
+        results.push({ ...exerciseDatabase.find(e => e.id === 'running-6mph'), suggestedDuration: duration, sourceText: 'Running' });
+    }
+    if (lowerText.includes('walk') || lowerText.includes('stroll')) {
+         results.push({ ...exerciseDatabase.find(e => e.id === 'walking-brisk'), suggestedDuration: duration, sourceText: 'Walking' });
+    }
+    if (lowerText.includes('bike') || lowerText.includes('biked') || lowerText.includes('cycl')) {
+         results.push({ ...exerciseDatabase.find(e => e.id === 'cycling-moderate'), suggestedDuration: duration, sourceText: 'Cycling' });
+    }
+    if (lowerText.includes('lift') || lowerText.includes('weight') || lowerText.includes('gym')) {
+         results.push({ ...exerciseDatabase.find(e => e.id === 'weight-lifting-moderate'), suggestedDuration: duration, sourceText: 'Weight Lifting' });
+    }
+    if (lowerText.includes('swim')) {
+        results.push({ ...exerciseDatabase.find(e => e.id === 'swimming-laps'), suggestedDuration: duration, sourceText: 'Swimming' });
+    }
+    if (lowerText.includes('yoga') || lowerText.includes('stretch')) {
+        results.push({ ...exerciseDatabase.find(e => e.id === 'yoga-hatha'), suggestedDuration: duration, sourceText: 'Yoga / Stretch' });
+    }
+
+    // Direct database matches
+    exerciseDatabase.forEach(ex => {
+        const keyword = ex.name.toLowerCase().split(' ')[0];
+        if (lowerText.includes(keyword) && !results.some(r => r.id === ex.id)) {
+            results.push({ ...ex, suggestedDuration: duration, sourceText: keyword });
+        }
+    });
+
+    // Deduplicate by ID
+    const unique = [];
+    results.forEach(r => {
+        if (!unique.find(u => u.id === r.id)) unique.push(r);
+    });
+
+    return unique.length > 0 ? unique : null;
+};
+
+/**
+ * Returns a personalized AI workout recommendation based on the time of day
+ */
+export const getAIWorkoutRecommendation = () => {
+    const hour = new Date().getHours();
+    
+    if (hour < 10) {
+        return {
+            title: 'Morning Energy Booster',
+            description: 'Start your day with a brisk 20-minute walk or a quick jogging session to boost your metabolism.',
+            suggestedExercise: exerciseDatabase.find(e => e.id === 'walking-brisk'),
+            duration: 20
+        };
+    } else if (hour > 18) {
+        return {
+             title: 'Evening Wind Down',
+             description: 'It\'s getting late. A 15-minute stretching or Yoga session will help you wind down and recover.',
+             suggestedExercise: exerciseDatabase.find(e => e.id === 'yoga-hatha'),
+             duration: 15
+        };
+    } else {
+         return {
+             title: 'Afternoon Burn',
+             description: 'Perfect time for some strength training or a moderate cycling session to break up the day!',
+             suggestedExercise: exerciseDatabase.find(e => e.id === 'weight-lifting-moderate'),
+             duration: 30
+         };
+    }
+};
+
+/**
  * Apple Health integration placeholder
  * In production, this would use HealthKit via native bridge or Web API
  */
