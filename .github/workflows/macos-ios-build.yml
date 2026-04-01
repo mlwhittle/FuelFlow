@@ -38,7 +38,7 @@ jobs:
           # This command compiles the codebase natively on GitHub's macOS machine.
           # We use NO code-signing here to verify compilation success.
           # To output a Production App Store .ipa, you will need to add your Apple Developer Certificates to GitHub Repository Secrets!
-          xcodebuild -workspace App.xcworkspace \
+          xcodebuild -project App.xcodeproj \
                      -scheme App \
                      -configuration Release \
                      CODE_SIGN_IDENTITY="" \
