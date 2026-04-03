@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-    appId: 'com.mlwhittle.fuelflow',
+    appId: 'com.fuelflow.app',
     appName: 'FuelFlow',
     webDir: 'dist',
     server: {

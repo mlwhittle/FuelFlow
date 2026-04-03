@@ -51,6 +51,7 @@ const PREMIUM_FEATURES = [
 
 export const SubscriptionProvider = ({ children }) => {
     const [isPremium, setIsPremium] = useState(false);
+    const [isTrialExpired, setIsTrialExpired] = useState(false);
     const [subscriptionLoading, setSubscriptionLoading] = useState(true);
     const [subscriptionData, setSubscriptionData] = useState(null);
 
@@ -61,6 +62,15 @@ export const SubscriptionProvider = ({ children }) => {
         const setupSubscriptionListener = async () => {
             const user = auth.currentUser;
             if (user) {
+                // Mathematically Evaluate 30-Day Cardless Free Trial based on account creation
+                if (user.metadata && user.metadata.creationTime) {
+                    const creationTime = new Date(user.metadata.creationTime).getTime();
+                    const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+                    setIsTrialExpired((Date.now() - creationTime) > THIRTY_DAYS_MS);
+                } else {
+                    setIsTrialExpired(true); // Failsafe protect
+                }
+
                 const subscriptionsRef = collection(db, 'customers', user.uid, 'subscriptions');
 
                 unsubscribe = onSnapshot(subscriptionsRef, (snapshot) => {
@@ -94,6 +104,7 @@ export const SubscriptionProvider = ({ children }) => {
                 });
             } else {
                 setIsPremium(false);
+                setIsTrialExpired(true); // Failsafe
                 setSubscriptionData(null);
                 setSubscriptionLoading(false);
             }
@@ -242,6 +253,7 @@ export const SubscriptionProvider = ({ children }) => {
 
     const value = {
         isPremium,
+        isTrialExpired,
         subscriptionLoading,
         subscriptionData,
         subscribe,

@@ -25,6 +25,7 @@ import SubscriptionSuccess from './components/SubscriptionSuccess';
 import MedicalDisclaimerModal from './components/MedicalDisclaimerModal';
 import OnboardingFlow from './components/OnboardingFlow';
 import FoundersClubUpsell from './components/FoundersClubUpsell';
+import UserManual from './components/UserManual';
 import './index.css';
 
 function AppContent() {
@@ -35,7 +36,7 @@ function AppContent() {
     return localStorage.getItem('fuelflow_skipAuth') === 'true';
   });
   const [authLoading, setAuthLoading] = useState(true);
-  const { isPremium, isFeaturePremium } = useSubscription();
+  const { isPremium, isTrialExpired, isFeaturePremium } = useSubscription();
 
   const [hasOnboarded, setHasOnboarded] = useState(() => {
     return localStorage.getItem('fuelflow_onboarded') === 'true';
@@ -44,9 +45,11 @@ function AppContent() {
   const handleCompleteOnboarding = () => {
     localStorage.setItem('fuelflow_onboarded', 'true');
     setHasOnboarded(true);
-    // Hard-lock: Force the paywall immediately after the Sunk-Cost funnel finishes generating its fake AI computation
-    if (!isPremium) {
+    // 30-Day Free Trial: Allow them into the dashboard directly unless 30 days have expired
+    if (!isPremium && isTrialExpired) {
       setCurrentView('premiumGate:dashboard');
+    } else {
+      setCurrentView('dashboard');
     }
   };
 
@@ -74,8 +77,8 @@ function AppContent() {
 
   // Navigate to a view - check premium status
   const navigateToView = (view) => {
-    if (isFeaturePremium(view) && !isPremium) {
-      // Show premium gate for this feature
+    if (isFeaturePremium(view) && !isPremium && isTrialExpired) {
+      // Show premium gate for this feature only if the 30-day Free Trial is mathematically over
       setCurrentView('premiumGate:' + view);
     } else {
       setCurrentView(view);
@@ -171,6 +174,8 @@ function AppContent() {
         return <FoundersClubUpsell onDecline={() => setCurrentView('dashboard')} />;
       case 'settings':
         return <Settings setCurrentView={navigateToView} />;
+      case 'manual':
+        return <UserManual />;
       default:
         return <Dashboard setCurrentView={navigateToView} />;
     }

@@ -57,6 +57,7 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
         { id: 'groceryList', label: 'Groceries', icon: '🛒' },
         { id: 'social', label: 'Community', icon: '🌐' },
         { id: 'recipes', label: 'Recipes', icon: '📖' },
+        { id: 'manual', label: 'User Guide', icon: '📘' },
         { id: 'settings', label: 'Settings', icon: '⚙️' },
         { id: 'admin', label: 'Admin', icon: '🛡️' }
     ];
@@ -171,6 +172,13 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
                             title="Master Control Board"
                         >
                             🛡️
+                        </button>
+                        <button
+                            className={`nav-item nav-settings ${currentView === 'manual' ? 'active' : ''}`}
+                            onClick={() => handleNavClick('manual')}
+                            title="User Guide"
+                        >
+                            📘
                         </button>
                         <button
                             className={`nav-item nav-settings ${currentView === 'settings' ? 'active' : ''}`}
