@@ -76,7 +76,6 @@ jobs:
             -authenticationKeyID $ASC_KEY_ID \
             -authenticationKeyIssuerID $ASC_ISSUER_ID \
             DEVELOPMENT_TEAM=6LW5TYA8KT \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
             archive
 
       - name: Export IPA
