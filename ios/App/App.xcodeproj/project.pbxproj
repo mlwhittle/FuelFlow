@@ -303,9 +303,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mlwhittle.fuelflow;
+				PRODUCT_BUNDLE_IDENTIFIER = com.whittlevitalio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				DEVELOPMENT_TEAM = 6LW5TYA8KT;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -326,8 +326,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mlwhittle.fuelflow;
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.whittlevitalio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				DEVELOPMENT_TEAM = 6LW5TYA8KT;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
