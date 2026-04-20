@@ -17,7 +17,7 @@ export const useSubscription = () => {
 
 // RevenueCat Integration Scaffolding (For Apple App Store IAP)
 // You will need to install @revenuecat/purchases-capacitor when building the iOS bundle
-const RC_PUBLIC_SDK_KEY = 'appl_YOUR_REVENUECAT_KEY_HERE';
+const RC_PUBLIC_SDK_KEY = 'appl_test_dPuHmIdXTECgbLRlPMIfTtESSME';
 
 // Stripe Firebase Extension Pricing Tiers
 export const PRICING_TIERS = {
