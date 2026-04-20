@@ -32,7 +32,7 @@ export const initGoogleFit = () => {
                     scope: SCOPES,
                     discoveryDocs: DISCOVERY_DOCS,
                     ux_mode: 'popup',
-                    plugin_name: 'FuelFlow'
+                    plugin_name: 'Whittle Vitalio'
                 });
 
                 isInitialized = true;

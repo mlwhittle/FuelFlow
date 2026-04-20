@@ -1,4 +1,4 @@
-// Service Worker for FuelFlow PWA
+// Service Worker for Whittle Vitalio PWA
 const CACHE_NAME = 'fuelflow-v1';
 const STATIC_ASSETS = [
     '/',

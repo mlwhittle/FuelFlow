@@ -96,7 +96,7 @@ export const createWarRoomRequest = async (user, content) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    source: 'FuelFlow_App',
+                    source: 'Whittle Vitalio_App',
                     requestId: docRef.id,
                     user: request.user,
                     content: request.content,

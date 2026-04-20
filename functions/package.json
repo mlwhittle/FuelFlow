@@ -1,6 +1,6 @@
 {
   "name": "fuelflow-functions",
-  "description": "Cloud Functions for FuelFlow Digital Staff",
+  "description": "Cloud Functions for Whittle Vitalio Digital Staff",
   "main": "index.js",
   "type": "module",
   "engines": {

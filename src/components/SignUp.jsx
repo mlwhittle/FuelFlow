@@ -54,7 +54,7 @@ const SignUp = ({ onSwitch, onSkip }) => {
                 <div className="auth-card card">
                     <div className="auth-logo">
                         <span className="logo-icon-large">🔥</span>
-                        <h1 className="gradient-text">FuelFlow</h1>
+                        <h1 className="gradient-text">Whittle Vitalio</h1>
                         <p>Create your account and start tracking</p>
                     </div>
 

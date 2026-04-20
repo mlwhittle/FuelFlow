@@ -157,7 +157,7 @@ const GroceryList = () => {
 
     // Share as text
     const shareList = () => {
-        let text = '🛒 FuelFlow Grocery List\n\n';
+        let text = '🛒 Whittle Vitalio Grocery List\n\n';
         DEPARTMENTS.forEach(dept => {
             const deptItems = filterItems(items[dept.id]);
             if (deptItems.length > 0) {

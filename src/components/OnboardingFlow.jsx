@@ -22,7 +22,7 @@ const OnboardingFlow = ({ onComplete }) => {
         "Processing dietary history & preferences...",
         "Calculating optimal macronutrient targets...",
         "Calibrating spiritual baseline routines...",
-        "Generating Custom FuelFlow Blueprint..."
+        "Generating Custom Whittle Vitalio Blueprint..."
     ];
 
     useEffect(() => {
@@ -85,7 +85,7 @@ const OnboardingFlow = ({ onComplete }) => {
                             <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'linear-gradient(135deg, var(--primary-400), var(--primary-600))', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <Activity color="white" size={16} />
                             </div>
-                            FuelFlow
+                            Whittle Vitalio
                         </div>
                         <div style={{ fontSize: '0.85rem', color: 'var(--text-tertiary)', fontWeight: 600 }}>
                             STEP {step - 1} OF 4
@@ -496,7 +496,7 @@ const OnboardingFlow = ({ onComplete }) => {
                             <Activity color="#EF4444" size={48} style={{ margin: '0 auto 16px' }} />
                             <h1 style={{ fontSize: '1.8rem', color: '#EF4444', marginBottom: '16px' }}>Medical Disclaimer</h1>
                             <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6, textAlign: 'left' }}>
-                                Before we reveal your custom FuelFlow Blueprint, you must acknowledge that FuelFlow is <strong>not a medical provider</strong> and the AI Coach is <strong>not a doctor</strong>.
+                                Before we reveal your custom Whittle Vitalio Blueprint, you must acknowledge that Whittle Vitalio is <strong>not a medical provider</strong> and the AI Coach is <strong>not a doctor</strong>.
                                 <br/><br/>
                                 This platform provides educational tools for tracking extreme fasting, macros, and workout regimens. You should <strong>always consult your physician</strong> before beginning any new diet or fitness program. By proceeding, you accept full responsibility for your health.
                             </p>

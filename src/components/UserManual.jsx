@@ -8,7 +8,7 @@ const UserManual = () => {
                 <div style={{ width: '64px', height: '64px', borderRadius: '16px', background: 'var(--gradient-primary)', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 16px', boxShadow: '0 8px 32px rgba(61, 150, 140, 0.3)' }}>
                     <BookOpen color="white" size={32} />
                 </div>
-                <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)' }}>FuelFlow User Manual</h1>
+                <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)' }}>Whittle Vitalio User Manual</h1>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
                     Welcome to your Digital Staff. Review this guide to master balancing your mind, body, and spirit using the AI effectively.
                 </p>
@@ -60,7 +60,7 @@ const UserManual = () => {
                     <div>
                         <h3 style={{ marginBottom: '8px' }}>Phase 3: Fueling The Body (Logging)</h3>
                         <p style={{ marginBottom: '12px', lineHeight: '1.6' }}>
-                            FuelFlow makes tracking nutrition the easiest part of your day by providing three distinct tools.
+                            Whittle Vitalio makes tracking nutrition the easiest part of your day by providing three distinct tools.
                         </p>
                         <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '12px', color: 'var(--text-secondary)' }}>
                             <li style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}><CheckCircle2 size={18} color="var(--primary-500)" style={{marginTop: '4px', flexShrink: 0}} /> <div><strong>The Food Log Arsenal:</strong> Use Standard Search, the Vision AI Photo Logger (snap photos for instant estimation), or Voice Logging (speak your meal out loud).</div></li>
@@ -94,7 +94,7 @@ const UserManual = () => {
                     <div>
                         <h3 style={{ marginBottom: '8px' }}>Phase 5: Engaging The AI Coach (The Mind)</h3>
                         <p style={{ marginBottom: '12px', lineHeight: '1.6' }}>
-                            The most powerful feature of FuelFlow. Standard trackers leave you guessing; FuelFlow talks back.
+                            The most powerful feature of Whittle Vitalio. Standard trackers leave you guessing; Whittle Vitalio talks back.
                         </p>
                         <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--text-secondary)' }}>
                             <li style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}><CheckCircle2 size={18} color="var(--primary-500)" style={{marginTop: '4px'}} /> <strong>Context-Aware Advice:</strong> Ask "Why am I so tired at 2pm?" and the Coach will read your macro data to identify exactly what is causing glycogen depletion.</li>

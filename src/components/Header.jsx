@@ -108,7 +108,7 @@ const Header = ({ currentView, setCurrentView, authUser }) => {
                     <div className="header-brand">
                         <div className="logo" onClick={() => handleNavClick('dashboard')} style={{ cursor: 'pointer' }}>
                             <span className="logo-icon">🔥</span>
-                            <span className="logo-text gradient-text">FuelFlow</span>
+                            <span className="logo-text gradient-text">Whittle Vitalio</span>
                         </div>
                     </div>
 

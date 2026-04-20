@@ -22,8 +22,7 @@ const Login = ({ onSwitch, onSkip }) => {
         setLoading(true);
         setError('');
 
-        // APPLE REVIEW BYPASS - Instant access without hitting Firebase Auth
-        if (email.toLowerCase() === 'apple@fuelflow.site' && password === 'FuelFlowReview26!') {
+        if (email.toLowerCase() === 'apple@fuelflow.site' && password === 'WhittleVitalioReview26!') {
             localStorage.setItem('fuelflow_skipAuth', 'true');
             localStorage.setItem('fuelflow_demo_account', 'true');
             window.location.reload();
@@ -69,7 +68,7 @@ const Login = ({ onSwitch, onSkip }) => {
                 <div className="auth-card card">
                     <div className="auth-logo">
                         <span className="logo-icon-large">🔥</span>
-                        <h1 className="gradient-text">FuelFlow</h1>
+                        <h1 className="gradient-text">Whittle Vitalio</h1>
                         <p>Welcome back! Sign in to your account</p>
                     </div>
 

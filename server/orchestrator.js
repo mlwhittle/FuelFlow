@@ -20,7 +20,7 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY || 'dummy_key'
 );
 
-console.log('🔥 Initializing FuelFlow Digital Staff Orchestrator...');
+console.log('🔥 Initializing Whittle Vitalio Digital Staff Orchestrator...');
 
 /**
  * The unified Webhook endpoint for all Supabase Database Triggers.

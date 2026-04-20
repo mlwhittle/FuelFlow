@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
     appId: 'com.fuelflow.app',
-    appName: 'FuelFlow',
+    appName: 'Whittle Vitalio',
     webDir: 'dist',
     server: {
         androidScheme: 'https'

@@ -1,4 +1,4 @@
-// Firebase Configuration for FuelFlow
+// Firebase Configuration for Whittle Vitalio
 // This is a brand new Firebase project — NOT reusing any existing projects
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';

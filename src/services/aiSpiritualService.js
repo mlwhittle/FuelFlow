@@ -1,5 +1,5 @@
 // aiSpiritualService.js
-// This service simulates the integration of Gemini and Claude AI for FuelFlow's "Daily Bread" Engine.
+// This service simulates the integration of Gemini and Claude AI for Whittle Vitalio's "Daily Bread" Engine.
 // It implements the "Pastor Mel" persona: 40 years of experience, focus on hope/restoration, body as a temple, KJV/NKJV routing.
 
 const PASTOR_MEL_PROMPT = `

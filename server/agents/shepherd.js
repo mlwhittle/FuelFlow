@@ -40,10 +40,10 @@ export const handleShepherdTask = async (record, supabase) => {
             console.log(`[The Shepherd] 🚨 CRISIS DETECTED. Sending care email via Resend...`);
             /*
             await resend.emails.send({
-                from: 'care@fuelflow.app',
+                from: 'care@whittlevitalio.com',
                 to: 'user@example.com', // Would pull from user_profiles in production
                 subject: 'Checking in on you - Pastor Mel',
-                html: '<p>Hello, this is The Shepherd from FuelFlow. We saw your prayer request and Pastor Mel wanted to send some extra encouragement your way. Call our support line if you need immediate prayer.</p>'
+                html: '<p>Hello, this is The Shepherd from Whittle Vitalio. We saw your prayer request and Pastor Mel wanted to send some extra encouragement your way. Call our support line if you need immediate prayer.</p>'
             });
             */
         }

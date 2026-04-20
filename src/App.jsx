@@ -197,7 +197,7 @@ function AppContent() {
         {renderView()}
       </main>
       <footer className="footer">
-        <p>© 2026 FuelFlow - Fueling the Temple, Flowing in the Spirit ✨</p>
+        <p>© 2026 Whittle Vitalio - Fueling the Temple, Flowing in the Spirit ✨</p>
       </footer>
     </div>
   );

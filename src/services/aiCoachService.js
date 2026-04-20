@@ -19,7 +19,7 @@ export const generateCoachResponse = async (userQuery, chatHistory, userContext)
 
     try {
         // 2. Construct the Agentic Context (The "System Prompt")
-        const systemPrompt = `You are the FuelFlow Adaptive Coach, a world-class AI fitness and spiritual mentor working within a "Clinical Luxury" health sanctuary app. 
+        const systemPrompt = `You are the Whittle Vitalio Adaptive Coach, a world-class AI fitness and spiritual mentor working within a "Clinical Luxury" health sanctuary app. 
 You must analyze the user's real-time biometric data and provide highly specific, mathematically sound, and encouraging guidance.
 
 CURRENT USER DATA LOGGED:

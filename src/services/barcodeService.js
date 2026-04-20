@@ -11,7 +11,7 @@ export const lookupBarcode = async (barcode) => {
     try {
         const response = await fetch(`${OPENFOODFACTS_API}/${barcode}.json`, {
             headers: {
-                'User-Agent': 'FuelFlow/1.0 (nutrition tracking app)'
+                'User-Agent': 'Whittle Vitalio/1.0 (nutrition tracking app)'
             }
         });
 

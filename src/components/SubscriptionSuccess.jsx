@@ -18,7 +18,7 @@ export default function SubscriptionSuccess({ onContinue }) {
 
                 <p className="premium-gate-description">
                     {isPremium
-                        ? 'Your FuelFlow Premium subscription is now active. All features are unlocked!'
+                        ? 'Your Whittle Vitalio Premium subscription is now active. All features are unlocked!'
                         : 'Securely finalizing your subscription with Stripe. This usually takes about 5 seconds...'
                     }
                 </p>

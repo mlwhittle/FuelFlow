@@ -1,7 +1,7 @@
 {
-  "name": "fuelflow-digital-staff",
+  "name": "whittle-vitalio-digital-staff",
   "version": "1.0.0",
-  "description": "Agentic Orchestration Engine for FuelFlow",
+  "description": "Agentic Orchestration Engine for Whittle Vitalio",
   "main": "orchestrator.js",
   "type": "module",
   "scripts": {

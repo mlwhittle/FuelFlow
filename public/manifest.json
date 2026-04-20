@@ -1,6 +1,6 @@
 {
-    "name": "FuelFlow - Nutrition Tracker",
-    "short_name": "FuelFlow",
+    "name": "Whittle Vitalio - Nutrition Tracker",
+    "short_name": "Whittle Vitalio",
     "description": "AI-powered nutrition tracking, meal planning, and fitness coaching",
     "start_url": "/",
     "display": "standalone",

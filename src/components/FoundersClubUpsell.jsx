@@ -26,7 +26,7 @@ export default function FoundersClubUpsell({ onDecline }) {
                         Join the <span className="fc-text-gold">Founders Club</span>
                     </h1>
                     <p className="fc-subtitle">
-                        Lock in lifetime savings before FuelFlow goes mainstream. Get 12 months of unrestricted premium access for the price of 5.
+                        Lock in lifetime savings before Whittle Vitalio goes mainstream. Get 12 months of unrestricted premium access for the price of 5.
                     </p>
                 </div>
 

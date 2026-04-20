@@ -271,7 +271,7 @@ const Settings = ({ setCurrentView }) => {
                         }}>
                             <span style={{ fontSize: '1.5rem' }}>✅</span>
                             <div>
-                                <strong style={{ color: '#00c853' }}>FuelFlow Premium — Active</strong>
+                                <strong style={{ color: '#00c853' }}>Whittle Vitalio Premium — Active</strong>
                                 <p style={{ fontSize: '0.85rem', opacity: 0.7, margin: '0.25rem 0 0' }}>
                                     $19.99/month • All features unlocked
                                 </p>

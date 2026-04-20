@@ -60,7 +60,7 @@ export default function PremiumGate({ feature, onBack, onFoundersClick }) {
     const featureInfo = PREMIUM_FEATURE_INFO[feature] || {
         icon: '⭐',
         name: 'Premium Feature',
-        description: 'Unlock this feature with FuelFlow Premium.'
+        description: 'Unlock this feature with Whittle Vitalio Premium.'
     };
 
     return (
@@ -80,7 +80,7 @@ export default function PremiumGate({ feature, onBack, onFoundersClick }) {
                     <span className="premium-gate-price">Free Trial Available</span>
                     {!Capacitor.isNativePlatform() && <span className="premium-gate-period">, then $19.99/month</span>}
                 </div>
-                <p className="premium-gate-subtitle">FuelFlow Premium Membership</p>
+                <p className="premium-gate-subtitle">Whittle Vitalio Premium Membership</p>
 
                 <ul className="premium-gate-features">
                     <li>📸 AI Food Photo Scanner</li>
