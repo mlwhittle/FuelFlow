@@ -13,7 +13,7 @@ import {
 } from 'firebase/auth';
 import { SignInWithApple } from '@capacitor-community/apple-sign-in';
 import { auth, db } from '../firebase';
-import { doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { doc, setDoc, deleteDoc, collection, getDocs, writeBatch } from 'firebase/firestore';
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -105,13 +105,29 @@ export const deleteUserAccount = async () => {
 
         const uid = user.uid;
 
-        // 1. Delete Firestore records
-        const userRef = doc(db, 'users', uid);
-        await deleteDoc(userRef);
+        // 1. Delete Firestore records and subcollections
+        const subcollections = ['foodLog', 'measurements', 'recipes', 'mealPlans', 'spiritualDiary'];
+        const batch = writeBatch(db);
 
+        // Queue deletions for all documents in known subcollections
+        for (const subcol of subcollections) {
+            const querySnapshot = await getDocs(collection(db, 'users', uid, subcol)).catch(() => ({ forEach: () => {} }));
+            querySnapshot.forEach((docSnap) => {
+                batch.delete(docSnap.ref);
+            });
+        }
+
+        // Add parent user document to the batch
+        const userRef = doc(db, 'users', uid);
+        batch.delete(userRef);
+
+        // Add daily metric to the batch
         const todayStr = new Date().toISOString().split('T')[0];
         const userMetricsRef = doc(db, 'userMetrics', `${uid}_${todayStr}`);
-        await deleteDoc(userMetricsRef).catch(() => {});
+        batch.delete(userMetricsRef);
+
+        // Commit the batch deletion
+        await batch.commit();
 
         // 2. Delete Auth Account
         // Note: if Stripe Extension connects, it will observe this Auth trigger.
