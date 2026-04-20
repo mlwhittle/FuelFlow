@@ -97,9 +97,10 @@ jobs:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
         run: |
+          IPA_PATH=$(find $RUNNER_TEMP/export -name "*.ipa" | head -1)
+          echo "Uploading IPA: $IPA_PATH"
           xcrun altool --upload-app \
             --type ios \
-            --file $RUNNER_TEMP/export/App.ipa \
+            --file "$IPA_PATH" \
             --apiKey "$ASC_KEY_ID" \
-            --apiIssuer "$ASC_ISSUER_ID" \
-            --apiKeyPath ~/.appstoreconnect/private_keys/AuthKey_$ASC_KEY_ID.p8
+            --apiIssuer "$ASC_ISSUER_ID"
