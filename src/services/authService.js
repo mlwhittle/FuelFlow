@@ -38,11 +38,16 @@ export const signUpWithEmail = async (email, password, displayName) => {
  */
 export const signInWithEmail = async (email, password) => {
     try {
-        const result = await signInWithEmailAndPassword(auth, email, password);
+        const result = await Promise.race([
+            signInWithEmailAndPassword(auth, email, password),
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Connection timed out — check your network and try again.')), 10000)
+            )
+        ]);
         return { user: result.user, error: null };
     } catch (error) {
         console.error('Sign in error:', error.code, error.message);
-        return { user: null, error: `[${error.code}]: ${error.message}` };
+        return { user: null, error: error.message || `Sign-in error (${error.code || 'unknown'}). Please try again.` };
     }
 };
 
