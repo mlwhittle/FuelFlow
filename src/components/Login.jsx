@@ -18,7 +18,6 @@ const Login = ({ onSwitch, onSkip }) => {
             setError('Please fill in all fields');
             return;
         }
-
         setLoading(true);
         setError('');
 
@@ -29,23 +28,31 @@ const Login = ({ onSwitch, onSkip }) => {
             return;
         }
 
-        const { error: authError } = await signInWithEmail(email, password);
-
-        if (authError) {
-            setError(authError);
+        try {
+            const { error: authError } = await signInWithEmail(email, password);
+            if (authError) {
+                setError(authError);
+            }
+        } catch (err) {
+            setError(err.message || 'Sign in failed. Please try again.');
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     const handleGoogleSignIn = async () => {
         setLoading(true);
         setError('');
-        const { error: authError } = await signInWithGoogle();
-
-        if (authError) {
-            setError(authError);
+        try {
+            const { error: authError } = await signInWithGoogle();
+            if (authError) {
+                setError(authError);
+            }
+        } catch (err) {
+            setError(err.message || 'Google sign in failed.');
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     const handlePasswordReset = async () => {
